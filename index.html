@@ -28,10 +28,6 @@
   body{background:var(--bg);color:var(--ink);font-family:var(--font-body);overflow-x:hidden;transition:background .45s,color .45s}
   ::selection{background:var(--accent);color:var(--on-accent)}
 
-  #glow{position:fixed;width:500px;height:500px;border-radius:50%;pointer-events:none;z-index:0;
-    background:radial-gradient(circle,color-mix(in srgb,var(--accent) 8%,transparent) 0%,transparent 70%);
-    transform:translate(-50%,-50%)}
-
   nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;
     padding:20px 40px;background:color-mix(in srgb,var(--bg) 78%,transparent);backdrop-filter:blur(10px);
     border-bottom:1px solid var(--border);transition:background .45s}
@@ -40,22 +36,30 @@
   nav .links a{color:var(--ink);text-decoration:none;margin-left:28px;font-size:13px;letter-spacing:1.5px;text-transform:uppercase;opacity:.7;transition:opacity .2s}
   nav .links a:hover{opacity:1}
 
-  .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;position:relative;padding:0 40px;z-index:1}
-  .hero h1{font-family:var(--font-display);font-size:clamp(56px,12vw,180px);line-height:.9;text-transform:uppercase;letter-spacing:-2px}
+  .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;position:relative;padding:0 40px;z-index:1;overflow:hidden}
+  .hero-bg{position:absolute;inset:0;z-index:-2;overflow:hidden;background:#050506}
+  .hero-bg img{width:100%;height:100%;object-fit:cover;object-position:50% 22%;opacity:0;animation:heroImgIn 1.8s ease forwards}
+  @keyframes heroImgIn{to{opacity:.6}}
+  .hero-bg::after{content:'';position:absolute;inset:0;transition:background .45s;
+    background:
+      linear-gradient(180deg, rgba(4,4,5,.72) 0%, rgba(4,4,5,.22) 42%, rgba(4,4,5,.5) 74%, var(--bg) 100%),
+      linear-gradient(90deg, rgba(4,4,5,.6) 0%, rgba(4,4,5,.05) 48%, rgba(4,4,5,.05) 55%, rgba(4,4,5,.4) 100%)}
+  .hero h1{font-family:var(--font-display);font-size:clamp(56px,12vw,180px);line-height:.9;text-transform:uppercase;letter-spacing:-2px;color:#f5f5f1}
   .hero h1 .line{display:block;overflow:hidden}
   .hero h1 .line span{display:inline-block;transform:translateY(110%);animation:rise 1s cubic-bezier(.19,1,.22,1) forwards}
   .hero h1 .line:nth-child(2) span{animation-delay:.12s;color:var(--accent)}
   @keyframes rise{to{transform:translateY(0)}}
-  .hero .sub{margin-top:32px;font-size:clamp(15px,2vw,20px);color:var(--dim);max-width:560px;opacity:0;animation:fade 1s .6s forwards}
-  .hero .sub b{color:var(--ink)}
+  .hero .sub{margin-top:32px;font-size:clamp(15px,2vw,20px);color:#d6d6d0;max-width:560px;opacity:0;animation:fade 1s .6s forwards}
+  .hero .sub b{color:#fff}
   @keyframes fade{to{opacity:1}}
-  .hero .scroll-hint{position:absolute;bottom:32px;left:40px;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--dim);animation:bob 2s ease-in-out infinite}
+  .hero .scroll-hint{position:absolute;bottom:32px;left:40px;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#cfcfc8;animation:bob 2s ease-in-out infinite}
   @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(8px)}}
 
   #traj{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:-1}
-  #traj path{stroke:var(--accent);stroke-width:2;fill:none;stroke-dasharray:2400;stroke-dashoffset:2400;animation:draw 2.4s .4s cubic-bezier(.65,0,.35,1) forwards;opacity:.5}
+  #traj path{stroke:var(--accent);stroke-width:3;fill:none;stroke-dasharray:2400;stroke-dashoffset:2400;animation:draw 2.4s .4s cubic-bezier(.65,0,.35,1) forwards;opacity:.6}
   @keyframes draw{to{stroke-dashoffset:0}}
-  #shuttle{offset-path:path('M -50 620 Q 400 80 760 300 T 1500 200');animation:fly 2.4s .4s cubic-bezier(.65,0,.35,1) forwards;font-size:28px;position:absolute}
+  #shuttle{offset-path:path('M -50 620 Q 400 80 760 300 T 1500 200');offset-rotate:0deg;animation:fly 2.4s .4s cubic-bezier(.65,0,.35,1) forwards;
+    font-size:clamp(52px,7vw,96px);position:absolute;filter:drop-shadow(0 0 22px var(--accent)) drop-shadow(0 8px 16px rgba(0,0,0,.55))}
   @keyframes fly{from{offset-distance:0%}to{offset-distance:100%}}
 
   .marquee{border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:18px 0;overflow:hidden;white-space:nowrap;background:var(--bg2);transition:background .45s}
@@ -98,6 +102,24 @@
   .prow{display:flex;align-items:baseline;padding:12px 0;font-size:15.5px}
   .prow .dots{flex:1;border-bottom:1px dotted var(--border);margin:0 12px;transform:translateY(-4px)}
   .prow .price{font-family:var(--font-display);color:var(--accent);font-size:17px;white-space:nowrap}
+
+  /* GALERIA */
+  .gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:14px}
+  .g-item{position:relative;aspect-ratio:4/5;border-radius:6px;overflow:hidden;border:1px solid var(--border);background:var(--bg2);cursor:pointer;padding:0;transition:border-color .3s}
+  .g-item:hover{border-color:var(--accent)}
+  .g-item img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .5s,filter .4s;filter:saturate(.92) brightness(.94)}
+  .g-item:hover img{transform:scale(1.08);filter:saturate(1.05) brightness(1)}
+  .g-item::after{content:'+';position:absolute;right:10px;bottom:10px;width:30px;height:30px;border-radius:50%;background:var(--accent);color:var(--on-accent);
+    display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:18px;opacity:0;transform:scale(.6);transition:opacity .25s,transform .25s}
+  .g-item:hover::after{opacity:1;transform:scale(1)}
+
+  #lightbox{position:fixed;inset:0;z-index:450;background:rgba(4,4,5,.9);display:none;align-items:center;justify-content:center;padding:40px;backdrop-filter:blur(6px)}
+  #lightbox.open{display:flex}
+  #lightbox figure{max-width:min(900px,92vw);max-height:88vh;margin:0;text-align:center}
+  #lightbox img{max-width:100%;max-height:78vh;border-radius:6px;box-shadow:0 30px 70px rgba(0,0,0,.5)}
+  #lightbox figcaption{color:#e8e8e4;font-size:14px;margin-top:16px;letter-spacing:.3px;font-family:var(--font-body)}
+  #lightbox .lb-close{position:absolute;top:22px;right:28px;background:none;border:1px solid rgba(255,255,255,.3);color:#fff;width:42px;height:42px;border-radius:50%;font-size:20px;cursor:pointer}
+  #lightbox .lb-close:hover{border-color:var(--accent);color:var(--accent)}
 
   .quote{border-left:4px solid var(--accent);padding-left:32px;font-size:clamp(20px,3vw,30px);line-height:1.4;font-weight:300;max-width:820px}
   .quote small{display:block;margin-top:20px;color:var(--dim);font-size:14px;letter-spacing:2px;text-transform:uppercase}
@@ -190,16 +212,16 @@
 </style>
 </head>
 <body data-theme="volt">
-<div id="glow"></div>
 
 <nav>
   <div class="logo">KA<b>.</b></div>
   <div class="links">
-    <a href="#historia">Historia</a><a href="#trening">Treningi</a><a href="#cennik">Cennik</a><a href="#klub">Klub</a><a href="#kontakt">Kontakt</a>
+    <a href="#historia">Historia</a><a href="#trening">Treningi</a><a href="#galeria">Galeria</a><a href="#cennik">Cennik</a><a href="#klub">Klub</a><a href="#kontakt">Kontakt</a>
   </div>
 </nav>
 
 <header class="hero">
+  <div class="hero-bg"><img src="img/kamila-augustyn-039.jpg" alt="Kamila Augustyn w akcji na korcie badmintona" loading="eager"></div>
   <svg id="traj" viewBox="0 0 1440 800" preserveAspectRatio="none">
     <path d="M -50 620 Q 400 80 760 300 T 1500 200"/>
   </svg>
@@ -250,6 +272,21 @@
     <div class="card"><div class="ico">👥</div><h3>Zajęcia grupowe</h3><p>Od pierwszego kroku po grę turniejową. Grupy dla dorosłych i młodzieży na każdym poziomie zaawansowania.</p></div>
     <div class="card"><div class="ico">🏆</div><h3>Szkolenie zawodnicze</h3><p>Program dla ambitnych — budowanie formy startowej, przygotowanie motoryczne i mentalne oparte na doświadczeniu olimpijskim.</p></div>
     <div class="card"><div class="ico">🏢</div><h3>Eventy firmowe</h3><p>Turnieje i integracje na 9 kortach Garnizonu. Badminton spala ok. 400 kcal na godzinę — najlepszy team building pod dachem.</p></div>
+  </div>
+</section>
+
+<section id="galeria" class="reveal">
+  <div class="kicker">Galeria</div>
+  <h2>W akcji</h2>
+  <div class="gallery">
+    <button class="g-item" data-full="img/kamila_augustyn_profil_olimpijski.jpg" data-cap="Oficjalny portret olimpijski · Polski Komitet Olimpijski"><img src="img/kamila_augustyn_profil_olimpijski.jpg" alt="Portret Kamili Augustyn" loading="lazy"></button>
+    <button class="g-item" data-full="img/kamila-augustyn-041.jpg" data-cap="Bekhend w pełnym biegu"><img src="img/kamila-augustyn-041.jpg" alt="Kamila Augustyn odbija lotkę bekhendem" loading="lazy"></button>
+    <button class="g-item" data-full="img/kamila-augustyn-049.jpg" data-cap="Serwis podczas turnieju"><img src="img/kamila-augustyn-049.jpg" alt="Kamila Augustyn serwuje" loading="lazy"></button>
+    <button class="g-item" data-full="img/kamila-augustyn-056.jpg" data-cap="Gra deblowa — gotowość do przyjęcia"><img src="img/kamila-augustyn-056.jpg" alt="Kamila Augustyn w grze deblowej" loading="lazy"></button>
+    <button class="g-item" data-full="img/kamila-augustyn-061.jpg" data-cap="Na korcie w Suwałkach, barwy Litpol-Malow"><img src="img/kamila-augustyn-061.jpg" alt="Kamila Augustyn na korcie w Suwałkach" loading="lazy"></button>
+    <button class="g-item" data-full="img/kamila-augustyn-071.jpg" data-cap="55. IMP Gniezno 2019 — koszulka z nazwiskiem"><img src="img/kamila-augustyn-071.jpg" alt="Kamila Augustyn w koszulce z nazwiskiem na 55. IMP" loading="lazy"></button>
+    <button class="g-item" data-full="img/kamila-augustyn-091.jpg" data-cap="Skoczny atak przy siatce"><img src="img/kamila-augustyn-091.jpg" alt="Kamila Augustyn atakuje przy siatce" loading="lazy"></button>
+    <button class="g-item" data-full="img/kamila-augustyn-111.jpg" data-cap="Gra mieszana — akcja przy siatce"><img src="img/kamila-augustyn-111.jpg" alt="Kamila Augustyn w grze mieszanej" loading="lazy"></button>
   </div>
 </section>
 
@@ -365,6 +402,11 @@
 </aside>
 
 <div id="toast">Zapisano ✓</div>
+
+<div id="lightbox">
+  <button class="lb-close" aria-label="Zamknij">✕</button>
+  <figure><img src="" alt=""><figcaption></figcaption></figure>
+</div>
 
 <script>
   /* ================= STAN / DOMYŚLNE ================= */
@@ -523,10 +565,19 @@
     clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove('show'),2200);
   }
 
-  /* ================= EFEKTY STRONY ================= */
-  const glow=$('glow');
-  addEventListener('mousemove',e=>{glow.style.left=e.clientX+'px';glow.style.top=e.clientY+'px'});
+  /* ================= GALERIA / LIGHTBOX ================= */
+  const lightbox=$('lightbox'),lbImg=lightbox.querySelector('img'),lbCap=lightbox.querySelector('figcaption');
+  function openLightbox(btn){
+    lbImg.src=btn.dataset.full;lbImg.alt=btn.querySelector('img').alt;lbCap.textContent=btn.dataset.cap||'';
+    lightbox.classList.add('open');
+  }
+  function closeLightbox(){lightbox.classList.remove('open')}
+  document.querySelectorAll('.g-item').forEach(btn=>btn.addEventListener('click',()=>openLightbox(btn)));
+  lightbox.querySelector('.lb-close').onclick=closeLightbox;
+  lightbox.addEventListener('click',e=>{if(e.target===lightbox)closeLightbox()});
+  addEventListener('keydown',e=>{if(e.key==='Escape')closeLightbox()});
 
+  /* ================= EFEKTY STRONY ================= */
   const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis')}),{threshold:.12});
   document.querySelectorAll('.reveal,.tl-item').forEach(el=>io.observe(el));
 
