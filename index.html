@@ -1,241 +1,546 @@
 <!DOCTYPE html>
 <html lang="pl">
 <head>
-<meta charset="utf-8">
-<title>Kamila Augustyn — Badminton</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kamila Augustyn — 16× Mistrzyni Polski w badmintonie | Treningi Gdańsk</title>
+<meta name="description" content="Kamila Augustyn — 16-krotna Mistrzyni Polski i dwukrotna olimpijka. Treningi badmintona indywidualne i grupowe w Klubie Badmintona Garnizon w Gdańsku.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏸</text></svg>">
 <style>
-body{margin:0;background:#000;font-family:'Almarai',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;}
-*{box-sizing:border-box;}
-.nav-link{color:rgba(225,224,204,0.8);text-decoration:none;font-size:clamp(10px,0.95vw,14px);transition:color .2s}
-.nav-link:hover{color:#E1E0CC}
-.cta-link{gap:8px}
-.cta-link:hover{gap:14px}
-.more-link{gap:6px}
-.more-link:hover{gap:10px}
+  /* ============ PALETY ============ */
+  body[data-theme="volt"]{   --bg:#0a0a0c; --bg2:#111116; --ink:#f4f4f0; --dim:#8a8a92; --accent:#d9ff3d; --on-accent:#0a0a0c; --border:#222228}
+  body[data-theme="ocean"]{  --bg:#071018; --bg2:#0c1926; --ink:#eef6fb; --dim:#7f93a3; --accent:#35e0ff; --on-accent:#06222b; --border:#16283a}
+  body[data-theme="ember"]{  --bg:#120e0c; --bg2:#1a1412; --ink:#f7f1ec; --dim:#9a8c83; --accent:#ff6b35; --on-accent:#1a0d05; --border:#2a201b}
+  body[data-theme="punch"]{  --bg:#14090f; --bg2:#1d0e16; --ink:#faf0f4; --dim:#a08894; --accent:#ff4f8b; --on-accent:#1d0812; --border:#2c1620}
+  body[data-theme="forest"]{ --bg:#0a120d; --bg2:#101a14; --ink:#eefaf2; --dim:#85988c; --accent:#4dffa6; --on-accent:#06180f; --border:#1b2a20}
+  body[data-theme="papier"]{ --bg:#f7f5f0; --bg2:#eeebe2; --ink:#16161c; --dim:#6d6d76; --accent:#ff5a36; --on-accent:#fff6f1; --border:#dcd8cd}
+  body[data-theme="lod"]{    --bg:#f1f4f7; --bg2:#e6ecf2; --ink:#0e2233; --dim:#64798c; --accent:#0066ff; --on-accent:#f2f7ff; --border:#d3dce4}
+  body[data-theme="oliwka"]{ --bg:#f5f2e6; --bg2:#ebe7d6; --ink:#1e2014; --dim:#767a62; --accent:#6da600; --on-accent:#f7fbe9; --border:#dcd6c2}
+  body[data-theme="lawenda"]{--bg:#f4f2fb; --bg2:#e9e6f5; --ink:#201c33; --dim:#746e8c; --accent:#6c4fff; --on-accent:#f4f1ff; --border:#d9d4ec}
+  body[data-theme="piasek"]{ --bg:#efe8dc; --bg2:#e5dccb; --ink:#26241e; --dim:#7c7466; --accent:#0e8f7e; --on-accent:#eefaf6; --border:#d6cbb8}
+
+  :root{
+    --font-display:'Archivo Black','Arial Black',sans-serif;
+    --font-body:'Segoe UI',system-ui,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--ink);font-family:var(--font-body);overflow-x:hidden;transition:background .45s,color .45s}
+  ::selection{background:var(--accent);color:var(--on-accent)}
+
+  #glow{position:fixed;width:500px;height:500px;border-radius:50%;pointer-events:none;z-index:0;
+    background:radial-gradient(circle,color-mix(in srgb,var(--accent) 8%,transparent) 0%,transparent 70%);
+    transform:translate(-50%,-50%)}
+
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;
+    padding:20px 40px;background:color-mix(in srgb,var(--bg) 78%,transparent);backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--border);transition:background .45s}
+  nav .logo{font-family:var(--font-display);font-size:18px;letter-spacing:2px}
+  nav .logo b{color:var(--accent)}
+  nav .links a{color:var(--ink);text-decoration:none;margin-left:28px;font-size:13px;letter-spacing:1.5px;text-transform:uppercase;opacity:.7;transition:opacity .2s}
+  nav .links a:hover{opacity:1}
+
+  .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;position:relative;padding:0 40px;z-index:1}
+  .hero h1{font-family:var(--font-display);font-size:clamp(56px,12vw,180px);line-height:.9;text-transform:uppercase;letter-spacing:-2px}
+  .hero h1 .line{display:block;overflow:hidden}
+  .hero h1 .line span{display:inline-block;transform:translateY(110%);animation:rise 1s cubic-bezier(.19,1,.22,1) forwards}
+  .hero h1 .line:nth-child(2) span{animation-delay:.12s;color:var(--accent)}
+  @keyframes rise{to{transform:translateY(0)}}
+  .hero .sub{margin-top:32px;font-size:clamp(15px,2vw,20px);color:var(--dim);max-width:560px;opacity:0;animation:fade 1s .6s forwards}
+  .hero .sub b{color:var(--ink)}
+  @keyframes fade{to{opacity:1}}
+  .hero .scroll-hint{position:absolute;bottom:32px;left:40px;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--dim);animation:bob 2s ease-in-out infinite}
+  @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(8px)}}
+
+  #traj{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:-1}
+  #traj path{stroke:var(--accent);stroke-width:2;fill:none;stroke-dasharray:2400;stroke-dashoffset:2400;animation:draw 2.4s .4s cubic-bezier(.65,0,.35,1) forwards;opacity:.5}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  #shuttle{offset-path:path('M -50 620 Q 400 80 760 300 T 1500 200');animation:fly 2.4s .4s cubic-bezier(.65,0,.35,1) forwards;font-size:28px;position:absolute}
+  @keyframes fly{from{offset-distance:0%}to{offset-distance:100%}}
+
+  .marquee{border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:18px 0;overflow:hidden;white-space:nowrap;background:var(--bg2);transition:background .45s}
+  .marquee .track{display:inline-block;animation:scrollx 22s linear infinite}
+  .marquee span{font-family:var(--font-display);font-size:22px;text-transform:uppercase;letter-spacing:1px;margin:0 32px;color:var(--dim)}
+  .marquee span em{font-style:normal;color:var(--accent)}
+  @keyframes scrollx{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+  section{padding:110px 40px;position:relative;z-index:1;max-width:1200px;margin:0 auto}
+  .kicker{font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin-bottom:18px}
+  h2{font-family:var(--font-display);font-size:clamp(34px,5vw,64px);text-transform:uppercase;line-height:1;margin-bottom:40px}
+
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:2px;background:var(--border)}
+  .stat{background:var(--bg);padding:44px 28px;transition:background .3s}
+  .stat:hover{background:color-mix(in srgb,var(--accent) 12%,var(--bg))}
+  .stat .num{font-family:var(--font-display);font-size:clamp(48px,6vw,84px);color:var(--accent);line-height:1}
+  .stat .lbl{margin-top:12px;color:var(--dim);font-size:14px;line-height:1.5}
+
+  .timeline{position:relative;margin-top:20px}
+  .timeline::before{content:'';position:absolute;left:0;top:0;bottom:0;width:1px;background:linear-gradient(var(--border),var(--accent),var(--border))}
+  .tl-item{padding:28px 0 28px 44px;position:relative;opacity:0;transform:translateY(30px);transition:opacity .7s,transform .7s}
+  .tl-item.vis{opacity:1;transform:none}
+  .tl-item::before{content:'';position:absolute;left:-5px;top:40px;width:11px;height:11px;border-radius:50%;background:var(--accent);box-shadow:0 0 16px var(--accent)}
+  .tl-item .year{font-family:var(--font-display);font-size:30px;color:var(--accent)}
+  .tl-item h3{font-size:19px;margin:6px 0 6px}
+  .tl-item p{color:var(--dim);font-size:15px;line-height:1.6;max-width:640px}
+
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
+  .card{border:1px solid var(--border);padding:36px 28px;border-radius:4px;position:relative;overflow:hidden;transition:transform .3s,border-color .3s,background .45s;background:var(--bg2)}
+  .card:hover{transform:translateY(-6px);border-color:var(--accent)}
+  .card .ico{font-size:34px;margin-bottom:18px}
+  .card h3{font-size:20px;margin-bottom:12px;text-transform:uppercase;letter-spacing:1px}
+  .card p{color:var(--dim);font-size:15px;line-height:1.65}
+
+  /* CENNIK */
+  .pricing{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:20px}
+  .pricebox{border:1px solid var(--border);background:var(--bg2);border-radius:4px;padding:38px 32px;transition:background .45s}
+  .pricebox h3{font-family:var(--font-display);font-size:20px;text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}
+  .pricebox .note{color:var(--dim);font-size:13px;margin-bottom:24px}
+  .prow{display:flex;align-items:baseline;padding:12px 0;font-size:15.5px}
+  .prow .dots{flex:1;border-bottom:1px dotted var(--border);margin:0 12px;transform:translateY(-4px)}
+  .prow .price{font-family:var(--font-display);color:var(--accent);font-size:17px;white-space:nowrap}
+
+  .quote{border-left:4px solid var(--accent);padding-left:32px;font-size:clamp(20px,3vw,30px);line-height:1.4;font-weight:300;max-width:820px}
+  .quote small{display:block;margin-top:20px;color:var(--dim);font-size:14px;letter-spacing:2px;text-transform:uppercase}
+
+  .contact{background:var(--accent);color:var(--on-accent);border-radius:8px;padding:70px 50px;display:flex;flex-wrap:wrap;gap:40px;justify-content:space-between;align-items:center;transition:background .45s}
+  .contact h2{color:var(--on-accent);margin-bottom:14px}
+  .contact p{font-size:16px;line-height:1.7;max-width:460px}
+  .contact a.btn{display:inline-block;background:var(--on-accent);color:var(--accent);padding:20px 42px;font-family:var(--font-display);text-transform:uppercase;text-decoration:none;font-size:16px;border-radius:4px;transition:transform .2s;letter-spacing:1px}
+  .contact a.btn:hover{transform:scale(1.05)}
+  .contact .meta{font-size:14px;line-height:2}
+
+  footer{padding:36px 40px;color:var(--dim);font-size:12px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;border-top:1px solid var(--border)}
+
+  .reveal{opacity:0;transform:translateY(36px);transition:opacity .8s,transform .8s}
+  .reveal.vis{opacity:1;transform:none}
+
+  /* ============ ADMIN ============ */
+  #gear{position:fixed;right:18px;bottom:18px;z-index:300;width:46px;height:46px;border-radius:50%;
+    background:var(--bg2);border:1px solid var(--border);color:var(--dim);font-size:20px;cursor:pointer;
+    display:flex;align-items:center;justify-content:center;transition:color .2s,transform .3s}
+  #gear:hover{color:var(--accent);transform:rotate(45deg)}
+
+  .overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:400;display:none;backdrop-filter:blur(3px)}
+  .overlay.open{display:flex;align-items:center;justify-content:center}
+
+  #pinBox{background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:38px 34px;width:min(360px,92vw);text-align:center}
+  #pinBox h3{font-family:var(--font-display);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+  #pinBox p{color:var(--dim);font-size:13px;margin-bottom:22px}
+  #pinInput{width:100%;text-align:center;font-size:26px;letter-spacing:12px;padding:14px;border-radius:8px;
+    border:1.5px solid var(--border);background:var(--bg);color:var(--ink);outline:none;font-family:var(--font-display)}
+  #pinInput:focus{border-color:var(--accent)}
+  #pinBox .err{color:#ff5a5a;font-size:13px;height:18px;margin-top:10px}
+  #pinBox button{margin-top:14px;width:100%;padding:14px;border:none;border-radius:8px;background:var(--accent);color:var(--on-accent);
+    font-family:var(--font-display);text-transform:uppercase;letter-spacing:1px;font-size:14px;cursor:pointer}
+  @keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-8px)}75%{transform:translateX(8px)}}
+  #pinBox.shake{animation:shake .3s}
+
+  #admin{position:fixed;top:0;right:0;bottom:0;width:min(400px,100vw);z-index:500;background:var(--bg2);
+    border-left:1px solid var(--border);transform:translateX(105%);transition:transform .4s cubic-bezier(.19,1,.22,1);
+    display:flex;flex-direction:column}
+  #admin.open{transform:translateX(0);box-shadow:-20px 0 60px rgba(0,0,0,.35)}
+  #admin header{display:flex;justify-content:space-between;align-items:center;padding:20px 24px;border-bottom:1px solid var(--border)}
+  #admin header h3{font-family:var(--font-display);font-size:16px;text-transform:uppercase;letter-spacing:1px}
+  #admin header h3 span{color:var(--accent)}
+  #admin .close{background:none;border:none;color:var(--dim);font-size:22px;cursor:pointer}
+  #admin .body{flex:1;overflow-y:auto;padding:22px 24px}
+  #admin .sec{margin-bottom:34px}
+  #admin .sec>label{display:block;font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--accent);margin-bottom:14px;font-family:var(--font-display)}
+  #admin .hint{font-size:12px;color:var(--dim);margin-top:8px;line-height:1.5}
+
+  .swgrid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px}
+  .sw{display:flex;flex-direction:column;align-items:center;gap:5px;cursor:pointer;background:none;border:none;padding:0}
+  .sw .dot{width:34px;height:34px;border-radius:50%;border:2px solid var(--border);transition:transform .2s,box-shadow .2s}
+  .sw:hover .dot{transform:scale(1.1)}
+  .sw.active .dot{border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 35%,transparent)}
+  .sw .nm{font-size:9.5px;letter-spacing:.5px;text-transform:uppercase;color:var(--dim)}
+  .sw.active .nm{color:var(--ink)}
+
+  .customrow{display:flex;gap:12px;align-items:center;margin-top:16px;flex-wrap:wrap}
+  .customrow label{font-size:13px;color:var(--dim);display:flex;align-items:center;gap:8px;cursor:pointer}
+  .customrow input[type=color]{width:40px;height:32px;border:1px solid var(--border);border-radius:6px;background:var(--bg);cursor:pointer;padding:2px}
+  .customrow input[type=checkbox]{accent-color:var(--accent);width:16px;height:16px}
+
+  .adm-row{display:grid;grid-template-columns:1fr 92px 30px;gap:8px;margin-bottom:8px;align-items:center}
+  .adm-row input{padding:10px 12px;border-radius:6px;border:1px solid var(--border);background:var(--bg);color:var(--ink);font-size:13.5px;outline:none;width:100%}
+  .adm-row input:focus{border-color:var(--accent)}
+  .adm-row .del{background:none;border:1px solid var(--border);border-radius:6px;color:var(--dim);cursor:pointer;height:100%;font-size:14px}
+  .adm-row .del:hover{color:#ff5a5a;border-color:#ff5a5a}
+  .addbtn{margin-top:6px;background:none;border:1px dashed var(--border);color:var(--dim);border-radius:6px;padding:10px;width:100%;cursor:pointer;font-size:13px}
+  .addbtn:hover{color:var(--accent);border-color:var(--accent)}
+
+  .pinrow{display:flex;gap:8px}
+  .pinrow input{flex:1;padding:10px 12px;border-radius:6px;border:1px solid var(--border);background:var(--bg);color:var(--ink);outline:none;letter-spacing:4px}
+  .pinrow button{padding:10px 16px;border-radius:6px;border:1px solid var(--border);background:var(--bg);color:var(--ink);cursor:pointer;font-size:13px}
+  .pinrow button:hover{border-color:var(--accent);color:var(--accent)}
+
+  #admin footer{border-top:1px solid var(--border);padding:16px 24px;display:grid;grid-template-columns:1fr auto;gap:10px}
+  #admin footer .save{background:var(--accent);color:var(--on-accent);border:none;border-radius:8px;padding:14px;
+    font-family:var(--font-display);text-transform:uppercase;letter-spacing:1px;font-size:13px;cursor:pointer;transition:transform .15s}
+  #admin footer .save:hover{transform:translateY(-2px)}
+  #admin footer .reset{background:none;border:1px solid var(--border);color:var(--dim);border-radius:8px;padding:14px 16px;cursor:pointer;font-size:12px}
+  #admin footer .reset:hover{color:#ff5a5a;border-color:#ff5a5a}
+
+  #toast{position:fixed;bottom:80px;left:50%;transform:translate(-50%,20px);z-index:600;background:var(--accent);color:var(--on-accent);
+    padding:12px 26px;border-radius:100px;font-size:14px;font-family:var(--font-display);letter-spacing:1px;text-transform:uppercase;
+    opacity:0;pointer-events:none;transition:opacity .3s,transform .3s}
+  #toast.show{opacity:1;transform:translate(-50%,0)}
+
+  @media(max-width:700px){nav .links{display:none}section{padding:70px 22px}.hero{padding:0 22px}}
 </style>
 </head>
-<body>
+<body data-theme="volt">
+<div id="glow"></div>
 
-<div style="background:#000;color:#E1E0CC;min-height:100vh;overflow-x:hidden">
+<nav>
+  <div class="logo">KA<b>.</b></div>
+  <div class="links">
+    <a href="#historia">Historia</a><a href="#trening">Treningi</a><a href="#cennik">Cennik</a><a href="#klub">Klub</a><a href="#kontakt">Kontakt</a>
+  </div>
+</nav>
 
-  <!-- ============ HERO ============ -->
-  <section data-screen-label="Hero" style="height:100vh;padding:clamp(16px,1.6vw,24px)">
-    <div style="position:relative;width:100%;height:100%;border-radius:clamp(16px,2vw,32px);overflow:hidden;background:#0a0a0a">
-      <img src="zdjecia/kamila-augustyn-051.jpg" alt="Kamila Augustyn w ataku podczas meczu na kortach 55. IMP w Gnieźnie" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
-      <div style="position:absolute;inset:0;opacity:0.7;mix-blend-mode:overlay;pointer-events:none;background-image:url('data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 200 200%27%3E%3Cfilter id=%27n%27%3E%3CfeTurbulence type=%27fractalNoise%27 baseFrequency=%270.85%27 numOctaves=%273%27 stitchTiles=%27stitch%27/%3E%3C/filter%3E%3Crect width=%27100%25%27 height=%27100%25%27 filter=%27url(%23n)%27/%3E%3C/svg%3E')"></div>
-      <div style="position:absolute;inset:0;pointer-events:none;background:linear-gradient(to bottom,rgba(0,0,0,0.3),transparent,rgba(0,0,0,0.6))"></div>
+<header class="hero">
+  <svg id="traj" viewBox="0 0 1440 800" preserveAspectRatio="none">
+    <path d="M -50 620 Q 400 80 760 300 T 1500 200"/>
+  </svg>
+  <div id="shuttle">🏸</div>
+  <h1>
+    <span class="line"><span>Kamila</span></span>
+    <span class="line"><span>Augustyn</span></span>
+  </h1>
+  <p class="sub"><b>16-krotna Mistrzyni Polski</b> w badmintonie. Dwukrotna olimpijka — Pekin 2008 i Londyn 2012. Dziś dzieli się doświadczeniem na kortach Klubu Badmintona Garnizon w Gdańsku.</p>
+  <div class="scroll-hint">Scroll ↓</div>
+</header>
 
-      <!-- Navbar pill -->
-      <nav style="position:absolute;top:0;left:50%;transform:translateX(-50%);background:#000;border-radius:0 0 clamp(16px,1.6vw,24px) clamp(16px,1.6vw,24px);padding:8px clamp(16px,2.2vw,32px);display:flex;gap:clamp(12px,3.5vw,56px);white-space:nowrap;z-index:5">
-        <a href="#o-mnie" class="nav-link">Moja historia</a>
-        <a href="#trening" class="nav-link">Treningi</a>
-        <a href="#trening" class="nav-link">Klub Garnizon</a>
-        <a href="#o-mnie" class="nav-link">Osiągnięcia</a>
-        <a href="#trening" class="nav-link">Kontakt</a>
-      </nav>
+<div class="marquee"><div class="track">
+  <span>16× <em>Mistrzyni Polski</em></span><span>Pekin <em>2008</em></span><span>Londyn <em>2012</em></span><span>Denmark Open <em>2006</em></span><span>Brąz ME <em>2008</em></span><span>Gdańsk <em>Garnizon</em></span>
+  <span>16× <em>Mistrzyni Polski</em></span><span>Pekin <em>2008</em></span><span>Londyn <em>2012</em></span><span>Denmark Open <em>2006</em></span><span>Brąz ME <em>2008</em></span><span>Gdańsk <em>Garnizon</em></span>
+</div></div>
 
-      <!-- Hero content -->
-      <div style="position:absolute;bottom:0;left:0;right:0;padding:clamp(16px,2.6vw,48px);display:flex;flex-wrap:wrap;align-items:flex-end;gap:clamp(16px,2vw,32px)">
-        <h1 style="flex:1 1 58%;margin:0;font-size:19.5vw;font-weight:400;line-height:0.85;letter-spacing:-0.07em;color:#E1E0CC;white-space:nowrap">
-          <span data-anim="pullup" data-delay="0" style="display:inline-block;position:relative;opacity:0;transform:translateY(20px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)">Kamila<span style="position:absolute;top:0.65em;right:-0.3em;font-size:0.31em">*</span></span>
-        </h1>
-        <div style="flex:1 1 260px;max-width:440px;display:flex;flex-direction:column;gap:clamp(16px,2vw,28px);padding-bottom:clamp(8px,1.2vw,20px)">
-          <p data-anim="fadeup" data-delay="0.5" style="margin:0;color:rgba(222,219,200,0.7);font-size:clamp(12px,1.05vw,16px);line-height:1.2;opacity:0;transform:translateY(20px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)">Kamila Augustyn — dwukrotna olimpijka i 16-krotna Indywidualna Mistrzyni Polski w singlu. Dziś dzieli się doświadczeniem z zawodnikami i amatorami na kortach Klubu Badmintona Garnizon w Gdańsku.</p>
-          <a href="#trening" data-anim="fadeup" data-delay="0.7" data-group="" class="cta-link" style="align-self:flex-start;display:flex;align-items:center;background:#DEDBC8;color:#000;text-decoration:none;font-weight:500;font-size:clamp(14px,1.1vw,16px);border-radius:999px;padding:6px 8px 6px 20px;opacity:0;transform:translateY(20px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1),gap .3s">
-            <span>Umów trening</span>
-            <span data-group-target="" style="display:flex;align-items:center;justify-content:center;width:40px;height:40px;background:#000;border-radius:999px;transition:transform .3s">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#E1E0CC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg>
-            </span>
-          </a>
-        </div>
-      </div>
+<section class="reveal">
+  <div class="kicker">Bilans kariery</div>
+  <h2>Liczby nie kłamią</h2>
+  <div class="stats">
+    <div class="stat"><div class="num" data-count="16">0</div><div class="lbl">tytułów Indywidualnej Mistrzyni Polski w singlu kobiet</div></div>
+    <div class="stat"><div class="num" data-count="2">0</div><div class="lbl">starty na Igrzyskach Olimpijskich — Pekin 2008, Londyn 2012</div></div>
+    <div class="stat"><div class="num" data-count="30">0</div><div class="lbl">lat na korcie — od lekcji WF w Słupsku po światowe areny</div></div>
+    <div class="stat"><div class="num" data-count="9">0</div><div class="lbl">profesjonalnych kortów w Klubie Garnizon, gdzie dziś trenuje i uczy</div></div>
+  </div>
+</section>
+
+<section id="historia" class="reveal">
+  <div class="kicker">Droga</div>
+  <h2>Historia zapisana lotką</h2>
+  <div class="timeline">
+    <div class="tl-item"><div class="year">1991</div><h3>Początek w Słupsku</h3><p>Dziewięcioletnia Kamila bierze rakietkę do ręki na lekcji WF. Leworęczna, szybka, uparta — trafia do klubu Piast Słupsk.</p></div>
+    <div class="tl-item"><div class="year">1999–2001</div><h3>Medale Mistrzostw Europy Juniorów</h3><p>Brąz w singlu (1999), potem złoto w deblu i srebro w singlu (2001). Europa poznaje jej nazwisko.</p></div>
+    <div class="tl-item"><div class="year">2006</div><h3>Denmark Open — tytuł elity</h3><p>Zwycięstwo w deblu kobiet z Nadieżdą Kostiuczyk w jednym z najbardziej prestiżowych turniejów świata.</p></div>
+    <div class="tl-item"><div class="year">2008</div><h3>Pekin i brąz ME drużyn</h3><p>Debiut olimpijski w singlu kobiet oraz brązowy medal Mistrzostw Europy w drużynach mieszanych.</p></div>
+    <div class="tl-item"><div class="year">2012</div><h3>Londyn — drugie igrzyska</h3><p>Ponownie wśród olimpijskiej elity. Najwyższy ranking kariery: #54 na świecie w deblu, #66 w singlu.</p></div>
+    <div class="tl-item"><div class="year">2019</div><h3>16. tytuł Mistrzyni Polski</h3><p>Gniezno, 55. IMP: finał 21:19, 21:19 z Wiktorią Dąbczyńską. Cały turniej bez straty seta. Rekord, który mówi sam za siebie.</p></div>
+    <div class="tl-item"><div class="year">Dziś</div><h3>Gdańsk — Klub Badmintona Garnizon</h3><p>Łączy własne starty z zarządzaniem klubem i szkoleniem nowego pokolenia. Badminton to dla niej wciąż codzienność.</p></div>
+  </div>
+</section>
+
+<section id="trening" class="reveal">
+  <div class="kicker">Oferta</div>
+  <h2>Trenuj z mistrzynią</h2>
+  <div class="cards">
+    <div class="card"><div class="ico">🎯</div><h3>Trening indywidualny</h3><p>Technika, taktyka i praca nad detalami pod okiem zawodniczki, która wygrała wszystko, co w Polsce można wygrać.</p></div>
+    <div class="card"><div class="ico">👥</div><h3>Zajęcia grupowe</h3><p>Od pierwszego kroku po grę turniejową. Grupy dla dorosłych i młodzieży na każdym poziomie zaawansowania.</p></div>
+    <div class="card"><div class="ico">🏆</div><h3>Szkolenie zawodnicze</h3><p>Program dla ambitnych — budowanie formy startowej, przygotowanie motoryczne i mentalne oparte na doświadczeniu olimpijskim.</p></div>
+    <div class="card"><div class="ico">🏢</div><h3>Eventy firmowe</h3><p>Turnieje i integracje na 9 kortach Garnizonu. Badminton spala ok. 400 kcal na godzinę — najlepszy team building pod dachem.</p></div>
+  </div>
+</section>
+
+<section id="cennik" class="reveal">
+  <div class="kicker">Cennik</div>
+  <h2>Ile to kosztuje?</h2>
+  <div class="pricing">
+    <div class="pricebox">
+      <h3>Treningi z Kamilą</h3>
+      <div class="note">Rezerwacja terminu: telefonicznie lub mailowo</div>
+      <div id="trainList"></div>
     </div>
-  </section>
-
-  <!-- ============ ABOUT ============ -->
-  <section id="o-mnie" data-screen-label="O mnie" style="background:#000;padding:clamp(16px,1.6vw,24px)">
-    <div style="background:#101010;border-radius:clamp(16px,2vw,32px);max-width:1152px;margin:0 auto;text-align:center;padding:clamp(56px,9vw,128px) clamp(20px,5vw,72px)">
-      <div style="color:#DEDBC8;font-size:clamp(10px,0.85vw,12px);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:clamp(28px,3.5vw,48px)">Badminton</div>
-      <h2 style="margin:0 auto;max-width:768px;font-weight:400;font-size:clamp(30px,4.8vw,72px);line-height:0.95;letter-spacing:-0.02em;color:#E1E0CC;display:inline-flex;flex-wrap:wrap;justify-content:center;column-gap:0.24em">
-        <span data-anim="pullup" data-delay="0" style="display:inline-block;opacity:0;transform:translateY(20px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)">Jestem</span>
-        <span data-anim="pullup" data-delay="0.08" style="display:inline-block;opacity:0;transform:translateY(20px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)">Kamila</span>
-        <span data-anim="pullup" data-delay="0.16" style="display:inline-block;opacity:0;transform:translateY(20px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)">Augustyn,</span>
-        <span data-anim="pullup" data-delay="0.24" style="display:inline-block;font-family:'Instrument Serif',serif;font-style:italic;opacity:0;transform:translateY(20px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)">dwukrotna</span>
-        <span data-anim="pullup" data-delay="0.32" style="display:inline-block;font-family:'Instrument Serif',serif;font-style:italic;opacity:0;transform:translateY(20px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)">olimpijka.</span>
-        <span data-anim="pullup" data-delay="0.4" style="display:inline-block;opacity:0;transform:translateY(20px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)">Gram</span>
-        <span data-anim="pullup" data-delay="0.48" style="display:inline-block;opacity:0;transform:translateY(20px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)">w</span>
-        <span data-anim="pullup" data-delay="0.56" style="display:inline-block;opacity:0;transform:translateY(20px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)">badmintona</span>
-        <span data-anim="pullup" data-delay="0.64" style="display:inline-block;opacity:0;transform:translateY(20px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)">od</span>
-        <span data-anim="pullup" data-delay="0.72" style="display:inline-block;opacity:0;transform:translateY(20px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)">dziewiątego</span>
-        <span data-anim="pullup" data-delay="0.8" style="display:inline-block;opacity:0;transform:translateY(20px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)">roku</span>
-        <span data-anim="pullup" data-delay="0.88" style="display:inline-block;opacity:0;transform:translateY(20px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)">życia.</span>
-      </h2>
-      <p data-letters="" style="margin:clamp(32px,4vw,56px) auto 0;max-width:640px;color:#DEDBC8;font-size:clamp(12px,1.05vw,16px);line-height:1.6">Przez lata reprezentowałam Polskę na kortach całego świata — od igrzysk w Pekinie po Londyn. Szesnaście razy sięgałam po tytuł Indywidualnej Mistrzyni Polski, wygrywałam turnieje w Danii, Portugalii i Szkocji. Dziś łączę własne starty z prowadzeniem Klubu Badmintona Garnizon w Gdańsku i uczę, że badminton rozwija szybkość, zwinność i wytrzymałość jak żaden inny sport.</p>
+    <div class="pricebox">
+      <h3>Korty i wypożyczenia</h3>
+      <div class="note">Klub Badmintona Garnizon · codziennie 6:00–23:30</div>
+      <div id="courtList"></div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <!-- ============ TRAINING ============ -->
-  <section id="trening" data-screen-label="Treningi" style="position:relative;min-height:100vh;background:#000;padding:clamp(64px,9vw,128px) clamp(16px,2.6vw,48px)">
-    <div style="position:absolute;inset:0;opacity:0.15;pointer-events:none;background-image:url('data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 200 200%27%3E%3Cfilter id=%27bn%27%3E%3CfeTurbulence type=%27fractalNoise%27 baseFrequency=%270.9%27 numOctaves=%274%27 stitchTiles=%27stitch%27/%3E%3C/filter%3E%3Crect width=%27100%25%27 height=%27100%25%27 filter=%27url(%23bn)%27/%3E%3C/svg%3E')"></div>
+<section class="reveal">
+  <blockquote class="quote">„Badminton to wszechstronna aktywność — rozwija różne grupy mięśni, poprawia szybkość, zwinność, wytrzymałość i kondycję."
+  <small>— Kamila Augustyn, magazyn Garnizon.pl</small></blockquote>
+</section>
 
-    <div style="position:relative;max-width:1400px;margin:0 auto">
-      <h2 style="margin:0 auto clamp(48px,6vw,88px);max-width:820px;text-align:center;font-weight:400;font-size:clamp(20px,2.6vw,40px);line-height:1.1;letter-spacing:-0.01em;display:inline-flex;flex-wrap:wrap;justify-content:center;column-gap:0.28em;width:100%">
-        <span data-anim="pullup" data-delay="0" style="display:inline-block;color:#E1E0CC;opacity:0;transform:translateY(20px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)">Profesjonalny</span>
-        <span data-anim="pullup" data-delay="0.08" style="display:inline-block;color:#E1E0CC;opacity:0;transform:translateY(20px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)">trening</span>
-        <span data-anim="pullup" data-delay="0.16" style="display:inline-block;color:#E1E0CC;opacity:0;transform:translateY(20px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)">dla</span>
-        <span data-anim="pullup" data-delay="0.24" style="display:inline-block;color:#E1E0CC;opacity:0;transform:translateY(20px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)">każdego</span>
-        <span data-anim="pullup" data-delay="0.32" style="display:inline-block;color:#E1E0CC;opacity:0;transform:translateY(20px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)">poziomu.</span>
-        <span data-anim="pullup" data-delay="0.4" style="display:inline-block;color:#6b7280;opacity:0;transform:translateY(20px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)">Od</span>
-        <span data-anim="pullup" data-delay="0.48" style="display:inline-block;color:#6b7280;opacity:0;transform:translateY(20px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)">pierwszego</span>
-        <span data-anim="pullup" data-delay="0.56" style="display:inline-block;color:#6b7280;opacity:0;transform:translateY(20px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)">odbicia</span>
-        <span data-anim="pullup" data-delay="0.64" style="display:inline-block;color:#6b7280;opacity:0;transform:translateY(20px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)">po</span>
-        <span data-anim="pullup" data-delay="0.72" style="display:inline-block;color:#6b7280;opacity:0;transform:translateY(20px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)">podium.</span>
-      </h2>
+<section id="klub" class="reveal">
+  <div class="kicker">Baza</div>
+  <h2>Klub Badmintona Garnizon</h2>
+  <div class="cards">
+    <div class="card"><div class="ico">📍</div><h3>Lokalizacja</h3><p>ul. Juliusza Słowackiego 7a, Gdańsk-Wrzeszcz — serce Garnizonu Kultury, dawne koszary zamienione w nowoczesną halę.</p></div>
+    <div class="card"><div class="ico">🕕</div><h3>Godziny</h3><p>Codziennie 6:00–23:30. 9 pełnowymiarowych kortów z nawierzchnią amortyzującą, strefa fitness, szatnie z prysznicami.</p></div>
+    <div class="card"><div class="ico">🚗</div><h3>Dojazd</h3><p>Serce Wrzeszcza — wygodny dojazd komunikacją miejską, parking płatny przy hali (8:00–20:00).</p></div>
+  </div>
+</section>
 
-      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:clamp(4px,0.6vw,12px)">
-
-        <!-- Card 1: image -->
-        <div data-anim="card" data-delay="0" style="position:relative;border-radius:16px;overflow:hidden;min-height:480px;background:#0a0a0a;opacity:0;transform:scale(0.95);transition:opacity .8s cubic-bezier(.22,1,.36,1),transform .8s cubic-bezier(.22,1,.36,1)">
-          <img src="zdjecia/kamila-augustyn-042.jpg" alt="Zawodniczka w dynamicznym wypadzie po lob na korcie" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover">
-          <div style="position:absolute;inset:0;background:linear-gradient(to bottom,transparent 55%,rgba(0,0,0,0.65))"></div>
-          <div style="position:absolute;left:24px;right:24px;bottom:24px;color:#E1E0CC;font-size:clamp(16px,1.4vw,20px)">Twój kort. Twoja gra.</div>
-        </div>
-
-        <!-- Card 2 -->
-        <div data-anim="card" data-delay="0.15" style="display:flex;flex-direction:column;background:#212121;border-radius:16px;min-height:480px;padding:clamp(20px,1.8vw,28px);opacity:0;transform:scale(0.95);transition:opacity .8s cubic-bezier(.22,1,.36,1),transform .8s cubic-bezier(.22,1,.36,1)">
-          <img src="zdjecia/kamila_augustyn_profil_olimpijski.jpg" alt="Kamila Augustyn" style="width:48px;height:48px;border-radius:8px;object-fit:cover">
-          <div style="margin-top:clamp(20px,2.2vw,32px);display:flex;align-items:baseline;justify-content:space-between;gap:8px">
-            <h3 style="margin:0;font-weight:400;font-size:clamp(18px,1.5vw,22px);color:#E1E0CC">Trening indywidualny.</h3>
-            <span style="color:#6b7280;font-size:12px">01</span>
-          </div>
-          <ul style="list-style:none;margin:clamp(16px,1.8vw,24px) 0 0;padding:0;display:flex;flex-direction:column;gap:14px">
-            <li style="display:flex;gap:10px;align-items:flex-start"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#DEDBC8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M20 6 9 17l-5-5"></path></svg><span style="color:#9ca3af;font-size:14px;line-height:1.45">Analiza techniki uderzeń i pracy nóg</span></li>
-            <li style="display:flex;gap:10px;align-items:flex-start"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#DEDBC8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M20 6 9 17l-5-5"></path></svg><span style="color:#9ca3af;font-size:14px;line-height:1.45">Taktyka meczowa singla i debla</span></li>
-            <li style="display:flex;gap:10px;align-items:flex-start"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#DEDBC8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M20 6 9 17l-5-5"></path></svg><span style="color:#9ca3af;font-size:14px;line-height:1.45">Indywidualny plan rozwoju zawodnika</span></li>
-            <li style="display:flex;gap:10px;align-items:flex-start"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#DEDBC8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M20 6 9 17l-5-5"></path></svg><span style="color:#9ca3af;font-size:14px;line-height:1.45">Nagrania wideo z analizą po treningu</span></li>
-          </ul>
-          <a href="#trening" class="more-link" style="margin-top:auto;display:flex;align-items:center;color:#DEDBC8;text-decoration:none;font-size:14px;padding-top:20px"><span>Dowiedz się więcej</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#DEDBC8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="transform:rotate(-45deg)"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a>
-        </div>
-
-        <!-- Card 3 -->
-        <div data-anim="card" data-delay="0.3" style="display:flex;flex-direction:column;background:#212121;border-radius:16px;min-height:480px;padding:clamp(20px,1.8vw,28px);opacity:0;transform:scale(0.95);transition:opacity .8s cubic-bezier(.22,1,.36,1),transform .8s cubic-bezier(.22,1,.36,1)">
-          <img src="zdjecia/kamila-augustyn-111.jpg" alt="Mecz deblowy na korcie klubowym" style="width:48px;height:48px;border-radius:8px;object-fit:cover">
-          <div style="margin-top:clamp(20px,2.2vw,32px);display:flex;align-items:baseline;justify-content:space-between;gap:8px">
-            <h3 style="margin:0;font-weight:400;font-size:clamp(18px,1.5vw,22px);color:#E1E0CC">Zajęcia grupowe.</h3>
-            <span style="color:#6b7280;font-size:12px">02</span>
-          </div>
-          <ul style="list-style:none;margin:clamp(16px,1.8vw,24px) 0 0;padding:0;display:flex;flex-direction:column;gap:14px">
-            <li style="display:flex;gap:10px;align-items:flex-start"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#DEDBC8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M20 6 9 17l-5-5"></path></svg><span style="color:#9ca3af;font-size:14px;line-height:1.45">Grupy dla dzieci, młodzieży i dorosłych</span></li>
-            <li style="display:flex;gap:10px;align-items:flex-start"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#DEDBC8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M20 6 9 17l-5-5"></path></svg><span style="color:#9ca3af;font-size:14px;line-height:1.45">Sparingi i gry kontrolne co tydzień</span></li>
-            <li style="display:flex;gap:10px;align-items:flex-start"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#DEDBC8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M20 6 9 17l-5-5"></path></svg><span style="color:#9ca3af;font-size:14px;line-height:1.45">Przygotowanie kondycyjne i motoryczne</span></li>
-          </ul>
-          <a href="#trening" class="more-link" style="margin-top:auto;display:flex;align-items:center;color:#DEDBC8;text-decoration:none;font-size:14px;padding-top:20px"><span>Dowiedz się więcej</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#DEDBC8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="transform:rotate(-45deg)"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a>
-        </div>
-
-        <!-- Card 4 -->
-        <div data-anim="card" data-delay="0.45" style="display:flex;flex-direction:column;background:#212121;border-radius:16px;min-height:480px;padding:clamp(20px,1.8vw,28px);opacity:0;transform:scale(0.95);transition:opacity .8s cubic-bezier(.22,1,.36,1),transform .8s cubic-bezier(.22,1,.36,1)">
-          <img src="zdjecia/kamila-augustyn-061.jpg" alt="Zawodniczki klubu na turnieju w Suwałkach" style="width:48px;height:48px;border-radius:8px;object-fit:cover">
-          <div style="margin-top:clamp(20px,2.2vw,32px);display:flex;align-items:baseline;justify-content:space-between;gap:8px">
-            <h3 style="margin:0;font-weight:400;font-size:clamp(18px,1.5vw,22px);color:#E1E0CC">Klub Garnizon.</h3>
-            <span style="color:#6b7280;font-size:12px">03</span>
-          </div>
-          <ul style="list-style:none;margin:clamp(16px,1.8vw,24px) 0 0;padding:0;display:flex;flex-direction:column;gap:14px">
-            <li style="display:flex;gap:10px;align-items:flex-start"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#DEDBC8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M20 6 9 17l-5-5"></path></svg><span style="color:#9ca3af;font-size:14px;line-height:1.45">9 kortów, Gdańsk-Wrzeszcz, ul. Słowackiego 7a</span></li>
-            <li style="display:flex;gap:10px;align-items:flex-start"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#DEDBC8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M20 6 9 17l-5-5"></path></svg><span style="color:#9ca3af;font-size:14px;line-height:1.45">Otwarte codziennie 6:00–23:30</span></li>
-            <li style="display:flex;gap:10px;align-items:flex-start"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#DEDBC8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;margin-top:2px"><path d="M20 6 9 17l-5-5"></path></svg><span style="color:#9ca3af;font-size:14px;line-height:1.45">Rezerwacje: 606 962 559 · info@badmintongarnizon.pl</span></li>
-          </ul>
-          <a href="#trening" class="more-link" style="margin-top:auto;display:flex;align-items:center;color:#DEDBC8;text-decoration:none;font-size:14px;padding-top:20px"><span>Dowiedz się więcej</span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#DEDBC8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="transform:rotate(-45deg)"><path d="M5 12h14"></path><path d="m12 5 7 7-7 7"></path></svg></a>
-        </div>
-
-      </div>
+<section id="kontakt" class="reveal">
+  <div class="contact">
+    <div>
+      <h2>Zagraj z nami</h2>
+      <p>Umów trening, zarezerwuj kort albo po prostu przyjdź zobaczyć, dlaczego badminton wciąga na całe życie.</p>
     </div>
-  </section>
+    <div class="meta">
+      <div><b>info@badmintongarnizon.pl</b></div>
+      <div>606 962 559 · 58 760 76 80</div>
+      <div>ul. Słowackiego 7a, Gdańsk</div>
+      <div style="margin-top:18px"><a class="btn" href="mailto:info@badmintongarnizon.pl">Napisz do nas</a></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div>© 2026 Kamila Augustyn · Klub Badmintona Garnizon</div>
+  <div>badmintongarnizon.pl</div>
+</footer>
+
+<!-- ============ ADMIN ============ -->
+<button id="gear" title="Panel administracyjny">⚙</button>
+
+<div class="overlay" id="pinOverlay">
+  <div id="pinBox">
+    <h3>Panel administracyjny</h3>
+    <p>Podaj PIN, aby edytować ceny i kolory strony</p>
+    <input id="pinInput" type="password" inputmode="numeric" maxlength="8" placeholder="••••" autocomplete="off">
+    <div class="err" id="pinErr"></div>
+    <button id="pinGo">Odblokuj</button>
+  </div>
 </div>
 
-<script>
-(function(){
-  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var animEls = Array.prototype.slice.call(document.querySelectorAll('[data-anim]'));
+<aside id="admin">
+  <header>
+    <h3>Admin <span>·</span> KA</h3>
+    <button class="close" id="admClose">✕</button>
+  </header>
+  <div class="body">
 
-  if (reduce) {
-    animEls.forEach(function(el){
-      el.style.transition = 'none';
-      el.style.opacity = '1';
-      el.style.transform = 'none';
-    });
-  } else {
-    var io = new IntersectionObserver(function(entries){
-      entries.forEach(function(e){
-        if (e.isIntersecting) {
-          var el = e.target;
-          el.style.transitionDelay = (el.dataset.delay || '0') + 's';
-          el.style.opacity = '1';
-          el.style.transform = 'none';
-          io.unobserve(el);
-        }
-      });
-    }, { threshold: 0.15 });
-    animEls.forEach(function(el){ io.observe(el); });
+    <div class="sec">
+      <label>Kolorystyka — gotowe palety</label>
+      <div class="swgrid" id="swGrid"></div>
+      <div class="customrow">
+        <label><input type="checkbox" id="cEnable"> Własne kolory</label>
+        <label>Tło <input type="color" id="cBg"></label>
+        <label>Akcent <input type="color" id="cAccent"></label>
+      </div>
+      <div class="hint">Własne kolory nadpisują paletę — kontrast tekstu dobiera się automatycznie.</div>
+    </div>
+
+    <div class="sec">
+      <label>Cennik — treningi z Kamilą</label>
+      <div id="admTrain"></div>
+      <button class="addbtn" id="addTrain">+ Dodaj pozycję</button>
+    </div>
+
+    <div class="sec">
+      <label>Cennik — korty i wypożyczenia</label>
+      <div id="admCourt"></div>
+      <button class="addbtn" id="addCourt">+ Dodaj pozycję</button>
+    </div>
+
+    <div class="sec">
+      <label>Zmiana PIN-u</label>
+      <div class="pinrow">
+        <input id="newPin" type="password" inputmode="numeric" maxlength="8" placeholder="Nowy PIN (4–8 cyfr)">
+        <button id="setPin">Zmień</button>
+      </div>
+      <div class="hint">Domyślny PIN: 1982. Zmiany zapisują się w tej przeglądarce (localStorage) — wersja produkcyjna z hostingiem wymaga prostego zaplecza (backend), które mogę dorobić.</div>
+    </div>
+
+  </div>
+  <footer>
+    <button class="save" id="admSave">Zapisz zmiany</button>
+    <button class="reset" id="admReset">Domyślne</button>
+  </footer>
+</aside>
+
+<div id="toast">Zapisano ✓</div>
+
+<script>
+  /* ================= STAN / DOMYŚLNE ================= */
+  const THEMES=[
+    {id:'volt',   name:'Volt',    bg:'#0a0a0c', ac:'#d9ff3d'},
+    {id:'ocean',  name:'Ocean',   bg:'#071018', ac:'#35e0ff'},
+    {id:'ember',  name:'Ember',   bg:'#120e0c', ac:'#ff6b35'},
+    {id:'punch',  name:'Punch',   bg:'#14090f', ac:'#ff4f8b'},
+    {id:'forest', name:'Forest',  bg:'#0a120d', ac:'#4dffa6'},
+    {id:'papier', name:'Papier',  bg:'#f7f5f0', ac:'#ff5a36'},
+    {id:'lod',    name:'Lód',     bg:'#f1f4f7', ac:'#0066ff'},
+    {id:'oliwka', name:'Oliwka',  bg:'#f5f2e6', ac:'#6da600'},
+    {id:'lawenda',name:'Lawenda', bg:'#f4f2fb', ac:'#6c4fff'},
+    {id:'piasek', name:'Piasek',  bg:'#efe8dc', ac:'#0e8f7e'},
+  ];
+  const DEFAULTS={
+    pin:'1982',
+    theme:'volt',
+    custom:{on:false,bg:'#0a0a0c',accent:'#d9ff3d'},
+    trainings:[
+      {label:'Trening indywidualny · 60 min',price:'150 zł'},
+      {label:'Trening indywidualny · 90 min',price:'210 zł'},
+      {label:'Trening dla dwojga · 60 min',price:'190 zł'},
+      {label:'Zajęcia grupowe · karnet mies.',price:'220 zł'},
+      {label:'Szkolenie zawodnicze · mies.',price:'od 400 zł'},
+      {label:'Event firmowy · wycena',price:'zapytaj'},
+    ],
+    courts:[
+      {label:'Kort · pon–pt 6:00–15:00',price:'65 zł/h'},
+      {label:'Kort · pon–pt 15:00–23:00',price:'75 zł/h'},
+      {label:'Kort · weekendy',price:'75 zł/h'},
+      {label:'Wynajem rakietki',price:'10 zł'},
+    ],
+  };
+  const KEY='ka-site-v1';
+  let S=load();
+  function load(){
+    try{
+      const j=JSON.parse(localStorage.getItem(KEY));
+      if(!j) return structuredClone(DEFAULTS);
+      return {...structuredClone(DEFAULTS),...j,custom:{...DEFAULTS.custom,...(j.custom||{})}};
+    }catch(e){return structuredClone(DEFAULTS)}
+  }
+  function persist(){localStorage.setItem(KEY,JSON.stringify(S))}
+
+  /* ================= KOLORY ================= */
+  const hex2rgb=h=>{h=h.replace('#','');if(h.length===3)h=[...h].map(c=>c+c).join('');const n=parseInt(h,16);return[(n>>16)&255,(n>>8)&255,n&255]};
+  const lum=h=>{const[r,g,b]=hex2rgb(h).map(v=>{v/=255;return v<=.03928?v/12.92:Math.pow((v+.055)/1.055,2.4)});return .2126*r+.7152*g+.0722*b};
+  const mix=(a,b,t)=>{const A=hex2rgb(a),B=hex2rgb(b);return '#'+A.map((v,i)=>Math.round(v+(B[i]-v)*t).toString(16).padStart(2,'0')).join('')};
+  const VARS=['--bg','--bg2','--ink','--dim','--accent','--on-accent','--border'];
+
+  function applyTheme(){
+    if(S.custom.on){
+      const bg=S.custom.bg, ac=S.custom.accent, dark=lum(bg)<.4;
+      const ink=dark?'#f4f4f0':'#16161c';
+      const set=(k,v)=>document.body.style.setProperty(k,v);
+      set('--bg',bg);
+      set('--bg2',mix(bg,dark?'#ffffff':'#000000',.05));
+      set('--border',mix(bg,dark?'#ffffff':'#000000',.14));
+      set('--ink',ink);
+      set('--dim',mix(bg,ink,.55));
+      set('--accent',ac);
+      set('--on-accent',lum(ac)>.45?'#101014':'#f8f8f6');
+    }else{
+      VARS.forEach(k=>document.body.style.removeProperty(k));
+      document.body.dataset.theme=S.theme;
+    }
+    renderSwatches();
   }
 
-  // Scroll-linked per-character reveal
-  var p = document.querySelector('[data-letters]');
-  if (p && !p.dataset.split) {
-    p.dataset.split = '1';
-    var text = p.textContent;
-    p.textContent = '';
-    var frag = document.createDocumentFragment();
-    var chars = [];
-    text.split(/(\s+)/).forEach(function(chunk){
-      if (/^\s+$/.test(chunk)) { frag.appendChild(document.createTextNode(' ')); return; }
-      var word = document.createElement('span');
-      word.style.display = 'inline-block';
-      word.style.whiteSpace = 'pre';
-      for (var i = 0; i < chunk.length; i++) {
-        var ch = chunk[i];
-        var s = document.createElement('span');
-        s.textContent = ch;
-        s.style.opacity = reduce ? '1' : '0.2';
-        word.appendChild(s);
-        chars.push(s);
-      }
-      frag.appendChild(word);
-    });
-    p.appendChild(frag);
+  /* ================= CENNIK NA STRONIE ================= */
+  const rowHTML=r=>`<div class="prow"><span>${esc(r.label)}</span><span class="dots"></span><span class="price">${esc(r.price)}</span></div>`;
+  const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  function renderPrices(){
+    document.getElementById('trainList').innerHTML=S.trainings.map(rowHTML).join('');
+    document.getElementById('courtList').innerHTML=S.courts.map(rowHTML).join('');
+  }
 
-    if (!reduce) {
-      var total = chars.length;
-      var ticking = false;
-      var update = function(){
-        ticking = false;
-        var rect = p.getBoundingClientRect();
-        var vh = window.innerHeight;
-        var prog = (vh * 0.8 - rect.top) / (rect.height + vh * 0.6);
-        for (var i = 0; i < total; i++) {
-          var cp = i / total;
-          var local = Math.min(1, Math.max(0, (prog - (cp - 0.1)) / 0.15));
-          chars[i].style.opacity = (0.2 + local * 0.8).toFixed(3);
-        }
-      };
-      var onScroll = function(){ if (!ticking) { ticking = true; requestAnimationFrame(update); } };
-      window.addEventListener('scroll', onScroll, { passive: true });
-      window.addEventListener('resize', onScroll);
-      update();
+  /* ================= PANEL ADMINA ================= */
+  const $=id=>document.getElementById(id);
+  const admin=$('admin'), pinOverlay=$('pinOverlay');
+
+  function renderSwatches(){
+    const g=$('swGrid');g.innerHTML='';
+    THEMES.forEach(t=>{
+      const b=document.createElement('button');
+      b.className='sw'+(!S.custom.on&&S.theme===t.id?' active':'');b.title=t.name;
+      b.innerHTML=`<span class="dot" style="background:linear-gradient(135deg,${t.bg} 50%,${t.ac} 50%)"></span><span class="nm">${t.name}</span>`;
+      b.onclick=()=>{S.theme=t.id;S.custom.on=false;$('cEnable').checked=false;applyTheme()};
+      g.appendChild(b);
+    });
+  }
+
+  function admRow(container,arr,i){
+    const d=document.createElement('div');d.className='adm-row';
+    d.innerHTML=`<input value="${esc(arr[i].label)}" placeholder="Nazwa"><input value="${esc(arr[i].price)}" placeholder="Cena"><button class="del" title="Usuń">✕</button>`;
+    const [l,p]=d.querySelectorAll('input');
+    l.oninput=()=>{arr[i].label=l.value;renderPrices()};
+    p.oninput=()=>{arr[i].price=p.value;renderPrices()};
+    d.querySelector('.del').onclick=()=>{arr.splice(i,1);renderAdminLists();renderPrices()};
+    container.appendChild(d);
+  }
+  function renderAdminLists(){
+    $('admTrain').innerHTML='';S.trainings.forEach((_,i)=>admRow($('admTrain'),S.trainings,i));
+    $('admCourt').innerHTML='';S.courts.forEach((_,i)=>admRow($('admCourt'),S.courts,i));
+  }
+  $('addTrain').onclick=()=>{S.trainings.push({label:'Nowa pozycja',price:'0 zł'});renderAdminLists();renderPrices()};
+  $('addCourt').onclick=()=>{S.courts.push({label:'Nowa pozycja',price:'0 zł'});renderAdminLists();renderPrices()};
+
+  // custom colors
+  $('cEnable').onchange=e=>{S.custom.on=e.target.checked;applyTheme()};
+  $('cBg').oninput=e=>{S.custom.bg=e.target.value;if(S.custom.on)applyTheme()};
+  $('cAccent').oninput=e=>{S.custom.accent=e.target.value;if(S.custom.on)applyTheme()};
+
+  // PIN gate
+  $('gear').onclick=()=>{
+    if(sessionStorage.getItem('ka-unlocked')==='1'){openAdmin();return}
+    pinOverlay.classList.add('open');$('pinInput').value='';$('pinErr').textContent='';
+    setTimeout(()=>$('pinInput').focus(),50);
+  };
+  function tryPin(){
+    if($('pinInput').value===S.pin){
+      sessionStorage.setItem('ka-unlocked','1');
+      pinOverlay.classList.remove('open');openAdmin();
+    }else{
+      $('pinErr').textContent='Nieprawidłowy PIN';
+      const box=$('pinBox');box.classList.remove('shake');void box.offsetWidth;box.classList.add('shake');
+      $('pinInput').value='';$('pinInput').focus();
     }
   }
+  $('pinGo').onclick=tryPin;
+  $('pinInput').addEventListener('keydown',e=>{if(e.key==='Enter')tryPin()});
+  pinOverlay.addEventListener('click',e=>{if(e.target===pinOverlay)pinOverlay.classList.remove('open')});
 
-  // Group hover: scale inner circle on CTA hover
-  document.querySelectorAll('[data-group]').forEach(function(g){
-    var target = g.querySelector('[data-group-target]');
-    if (!target) return;
-    g.addEventListener('mouseenter', function(){ target.style.transform = 'scale(1.1)'; });
-    g.addEventListener('mouseleave', function(){ target.style.transform = 'scale(1)'; });
-  });
-})();
+  function openAdmin(){
+    $('cEnable').checked=S.custom.on;$('cBg').value=S.custom.bg;$('cAccent').value=S.custom.accent;
+    renderAdminLists();renderSwatches();admin.classList.add('open');
+  }
+  $('admClose').onclick=()=>admin.classList.remove('open');
+
+  $('setPin').onclick=()=>{
+    const v=$('newPin').value.trim();
+    if(!/^\d{4,8}$/.test(v)){toast('PIN: 4–8 cyfr');return}
+    S.pin=v;persist();$('newPin').value='';toast('PIN zmieniony ✓');
+  };
+
+  $('admSave').onclick=()=>{persist();toast('Zapisano ✓')};
+  $('admReset').onclick=()=>{
+    if(!confirm('Przywrócić domyślne ceny, kolory i PIN?'))return;
+    localStorage.removeItem(KEY);S=load();
+    applyTheme();renderPrices();openAdmin();toast('Przywrócono domyślne');
+  };
+
+  function toast(msg){
+    const t=$('toast');t.textContent=msg;t.classList.add('show');
+    clearTimeout(t._h);t._h=setTimeout(()=>t.classList.remove('show'),2200);
+  }
+
+  /* ================= EFEKTY STRONY ================= */
+  const glow=$('glow');
+  addEventListener('mousemove',e=>{glow.style.left=e.clientX+'px';glow.style.top=e.clientY+'px'});
+
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis')}),{threshold:.12});
+  document.querySelectorAll('.reveal,.tl-item').forEach(el=>io.observe(el));
+
+  const cio=new IntersectionObserver(es=>es.forEach(e=>{
+    if(!e.isIntersecting)return;cio.unobserve(e.target);
+    const el=e.target,end=+el.dataset.count,t0=performance.now();
+    (function tick(t){const p=Math.min((t-t0)/1400,1);el.textContent=Math.round(end*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(tick)})(t0);
+  }),{threshold:.6});
+  document.querySelectorAll('[data-count]').forEach(el=>cio.observe(el));
+
+  /* start */
+  applyTheme();renderPrices();
+  // wejście na adres z #admin od razu otwiera bramkę PIN
+  if(location.hash==='#admin')$('gear').click();
 </script>
 </body>
 </html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kamila Augustyn — wybór konceptu strony</title>
+<style>
+  :root{--ink:#181820;--paper:#f5f4f1;--dim:#71717c}
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--paper);color:var(--ink);font-family:'Segoe UI',system-ui,sans-serif;padding:56px 28px}
+  .wrap{max-width:1240px;margin:0 auto}
+  h1{font-size:clamp(28px,4vw,44px);letter-spacing:-.5px}
+  .sub{color:var(--dim);margin:12px 0 44px;max-width:720px;line-height:1.6}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:26px}
+  .concept{background:#fff;border-radius:16px;overflow:hidden;box-shadow:0 8px 30px rgba(0,0,0,.08);
+    display:flex;flex-direction:column;transition:transform .25s,box-shadow .25s}
+  .concept:hover{transform:translateY(-6px);box-shadow:0 20px 44px rgba(0,0,0,.14)}
+  .thumb{height:420px;border:none;width:143%;transform:scale(.7);transform-origin:top left;height:600px;pointer-events:none}
+  .thumb-clip{height:420px;overflow:hidden;border-bottom:1px solid #e8e6e2}
+  .body{padding:26px 26px 30px;display:flex;flex-direction:column;flex:1}
+  .tag{font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:var(--dim)}
+  h2{font-size:22px;margin:8px 0 10px}
+  p{color:var(--dim);font-size:14.5px;line-height:1.65;flex:1}
+  ul{margin:14px 0 20px;padding-left:18px;color:var(--dim);font-size:13.5px;line-height:1.8}
+  a.open{display:inline-block;text-align:center;background:var(--ink);color:#fff;text-decoration:none;
+    padding:14px;border-radius:10px;font-size:14.5px;transition:opacity .2s}
+  a.open:hover{opacity:.85}
+  footer{margin-top:48px;color:var(--dim);font-size:13px;line-height:1.7;max-width:820px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Nowa strona Kamili Augustyn — 3 koncepty do wyboru</h1>
+  <p class="sub">Każdy koncept to w pełni działająca, interaktywna strona one-page z kompletną treścią (kariera, oferta trenerska, klub Garnizon, kontakt). Otwórz każdy w pełnym oknie, przewiń do końca i wybierz kierunek — wybrany koncept dopracujemy do wersji produkcyjnej.</p>
+
+  <div class="grid">
+    <div class="concept">
+      <div class="thumb-clip"><iframe class="thumb" src="koncept-1-smash.html" scrolling="no" tabindex="-1"></iframe></div>
+      <div class="body">
+        <div class="tag">Koncept 1</div>
+        <h2>SMASH — kinetyczny &amp; mroczny</h2>
+        <p>Czarne tło, elektryczny limonkowy akcent, wielka typografia. Energia smecza — strona „sportowej gwiazdy”.</p>
+        <ul>
+          <li>Animowana trajektoria lotki na starcie</li>
+          <li>Poświata podążająca za kursorem, marquee osiągnięć</li>
+          <li>Liczniki rekordów i timeline odsłaniany scrollem</li>
+        </ul>
+        <a class="open" href="koncept-1-smash.html">Otwórz koncept 1 →</a>
+      </div>
+    </div>
+
+    <div class="concept">
+      <div class="thumb-clip"><iframe class="thumb" src="koncept-2-flow.html" scrolling="no" tabindex="-1"></iframe></div>
+      <div class="body">
+        <div class="tag">Koncept 2</div>
+        <h2>FLOW — jasny &amp; premium</h2>
+        <p>Ciepła biel, szeryfowa elegancja, miękkie gradienty. Osobista marka trenerki — spokój, zaufanie, klasa.</p>
+        <ul>
+          <li>Portret olimpijski w hero + pływające gradientowe plamy</li>
+          <li>Sticky-scroll historia kariery (podświetlane rozdziały)</li>
+          <li>Karty oferty z hover-efektami i formularz kontaktowy</li>
+        </ul>
+        <a class="open" href="koncept-2-flow.html">Otwórz koncept 2 →</a>
+      </div>
+    </div>
+
+    <div class="concept">
+      <div class="thumb-clip"><iframe class="thumb" src="koncept-3-retro.html" scrolling="no" tabindex="-1"></iframe></div>
+      <div class="body">
+        <div class="tag">Koncept 3</div>
+        <h2>Garnizon Retro-Modern</h2>
+        <p>Vintage plakat w duchu identyfikacji klubu Garnizon („Ruch, kultura i zabawa”) podany nowocześnie i z humorem.</p>
+        <ul>
+          <li>Obracana pieczęć, papierowe ziarno, paski „ticket”</li>
+          <li>Odwracane karty-trofea (flip 3D) i pozioma kronika kariery</li>
+          <li>Retro cennik z kropkowanymi liniami</li>
+        </ul>
+        <a class="open" href="koncept-3-retro.html">Otwórz koncept 3 →</a>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <b>Uwagi:</b> Zdjęcia w folderze to miniatury z wyszukiwarki — przed publikacją trzeba pozyskać od klubu materiały w wysokiej rozdzielczości i potwierdzić prawa (dlatego koncepty opierają się na typografii i animacjach, nie na fotografiach). Zgodnie z notatkami nie linkuję żadnych kont social media — znalezione konta należą do innej osoby. Formularz w koncepcie 2 to atrapa do podłączenia w wersji produkcyjnej.
+  </footer>
+</div>
+</body>
+</html>

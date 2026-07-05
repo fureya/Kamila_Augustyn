@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kamila Augustyn — SMASH | 10 opcji kolorystycznych</title>
+<style>
+  /* ============ 10 PALET ============ */
+  body[data-theme="volt"]{   --bg:#0a0a0c; --bg2:#111116; --ink:#f4f4f0; --dim:#8a8a92; --accent:#d9ff3d; --on-accent:#0a0a0c; --border:#222228}
+  body[data-theme="ocean"]{  --bg:#071018; --bg2:#0c1926; --ink:#eef6fb; --dim:#7f93a3; --accent:#35e0ff; --on-accent:#06222b; --border:#16283a}
+  body[data-theme="ember"]{  --bg:#120e0c; --bg2:#1a1412; --ink:#f7f1ec; --dim:#9a8c83; --accent:#ff6b35; --on-accent:#1a0d05; --border:#2a201b}
+  body[data-theme="punch"]{  --bg:#14090f; --bg2:#1d0e16; --ink:#faf0f4; --dim:#a08894; --accent:#ff4f8b; --on-accent:#1d0812; --border:#2c1620}
+  body[data-theme="forest"]{ --bg:#0a120d; --bg2:#101a14; --ink:#eefaf2; --dim:#85988c; --accent:#4dffa6; --on-accent:#06180f; --border:#1b2a20}
+  body[data-theme="papier"]{ --bg:#f7f5f0; --bg2:#eeebe2; --ink:#16161c; --dim:#6d6d76; --accent:#ff5a36; --on-accent:#fff6f1; --border:#dcd8cd}
+  body[data-theme="lod"]{    --bg:#f1f4f7; --bg2:#e6ecf2; --ink:#0e2233; --dim:#64798c; --accent:#0066ff; --on-accent:#f2f7ff; --border:#d3dce4}
+  body[data-theme="oliwka"]{ --bg:#f5f2e6; --bg2:#ebe7d6; --ink:#1e2014; --dim:#767a62; --accent:#6da600; --on-accent:#f7fbe9; --border:#dcd6c2}
+  body[data-theme="lawenda"]{--bg:#f4f2fb; --bg2:#e9e6f5; --ink:#201c33; --dim:#746e8c; --accent:#6c4fff; --on-accent:#f4f1ff; --border:#d9d4ec}
+  body[data-theme="piasek"]{ --bg:#efe8dc; --bg2:#e5dccb; --ink:#26241e; --dim:#7c7466; --accent:#0e8f7e; --on-accent:#eefaf6; --border:#d6cbb8}
+
+  :root{
+    --font-display:'Archivo Black','Arial Black',sans-serif;
+    --font-body:'Segoe UI',system-ui,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--ink);font-family:var(--font-body);overflow-x:hidden;
+    transition:background .45s,color .45s;padding-bottom:86px}
+  ::selection{background:var(--accent);color:var(--on-accent)}
+
+  /* cursor glow */
+  #glow{position:fixed;width:500px;height:500px;border-radius:50%;pointer-events:none;z-index:0;
+    background:radial-gradient(circle,color-mix(in srgb,var(--accent) 8%,transparent) 0%,transparent 70%);
+    transform:translate(-50%,-50%)}
+
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;
+    padding:20px 40px;background:color-mix(in srgb,var(--bg) 78%,transparent);backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--border);transition:background .45s}
+  nav .logo{font-family:var(--font-display);font-size:18px;letter-spacing:2px}
+  nav .logo b{color:var(--accent)}
+  nav .links a{color:var(--ink);text-decoration:none;margin-left:28px;font-size:13px;letter-spacing:1.5px;text-transform:uppercase;opacity:.7;transition:opacity .2s}
+  nav .links a:hover{opacity:1}
+
+  /* HERO */
+  .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;position:relative;padding:0 40px;z-index:1}
+  .hero h1{font-family:var(--font-display);font-size:clamp(56px,12vw,180px);line-height:.9;text-transform:uppercase;letter-spacing:-2px}
+  .hero h1 .line{display:block;overflow:hidden}
+  .hero h1 .line span{display:inline-block;transform:translateY(110%);animation:rise 1s cubic-bezier(.19,1,.22,1) forwards}
+  .hero h1 .line:nth-child(2) span{animation-delay:.12s;color:var(--accent)}
+  @keyframes rise{to{transform:translateY(0)}}
+  .hero .sub{margin-top:32px;font-size:clamp(15px,2vw,20px);color:var(--dim);max-width:560px;opacity:0;animation:fade 1s .6s forwards}
+  .hero .sub b{color:var(--ink)}
+  @keyframes fade{to{opacity:1}}
+  .hero .scroll-hint{position:absolute;bottom:32px;left:40px;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--dim);animation:bob 2s ease-in-out infinite}
+  @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(8px)}}
+
+  #traj{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:-1}
+  #traj path{stroke:var(--accent);stroke-width:2;fill:none;stroke-dasharray:2400;stroke-dashoffset:2400;animation:draw 2.4s .4s cubic-bezier(.65,0,.35,1) forwards;opacity:.5}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  #shuttle{offset-path:path('M -50 620 Q 400 80 760 300 T 1500 200');animation:fly 2.4s .4s cubic-bezier(.65,0,.35,1) forwards;font-size:28px;position:absolute}
+  @keyframes fly{from{offset-distance:0%}to{offset-distance:100%}}
+
+  /* MARQUEE */
+  .marquee{border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:18px 0;overflow:hidden;white-space:nowrap;background:var(--bg2);transition:background .45s}
+  .marquee .track{display:inline-block;animation:scrollx 22s linear infinite}
+  .marquee span{font-family:var(--font-display);font-size:22px;text-transform:uppercase;letter-spacing:1px;margin:0 32px;color:var(--dim)}
+  .marquee span em{font-style:normal;color:var(--accent)}
+  @keyframes scrollx{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+  section{padding:110px 40px;position:relative;z-index:1;max-width:1200px;margin:0 auto}
+  .kicker{font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--accent);margin-bottom:18px}
+  h2{font-family:var(--font-display);font-size:clamp(34px,5vw,64px);text-transform:uppercase;line-height:1;margin-bottom:40px}
+
+  /* STATS */
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:2px;background:var(--border)}
+  .stat{background:var(--bg);padding:44px 28px;transition:background .3s}
+  .stat:hover{background:color-mix(in srgb,var(--accent) 12%,var(--bg))}
+  .stat .num{font-family:var(--font-display);font-size:clamp(48px,6vw,84px);color:var(--accent);line-height:1}
+  .stat .lbl{margin-top:12px;color:var(--dim);font-size:14px;line-height:1.5}
+
+  /* TIMELINE */
+  .timeline{position:relative;margin-top:20px}
+  .timeline::before{content:'';position:absolute;left:0;top:0;bottom:0;width:1px;background:linear-gradient(var(--border),var(--accent),var(--border))}
+  .tl-item{padding:28px 0 28px 44px;position:relative;opacity:0;transform:translateY(30px);transition:opacity .7s,transform .7s}
+  .tl-item.vis{opacity:1;transform:none}
+  .tl-item::before{content:'';position:absolute;left:-5px;top:40px;width:11px;height:11px;border-radius:50%;background:var(--accent);box-shadow:0 0 16px var(--accent)}
+  .tl-item .year{font-family:var(--font-display);font-size:30px;color:var(--accent)}
+  .tl-item h3{font-size:19px;margin:6px 0 6px}
+  .tl-item p{color:var(--dim);font-size:15px;line-height:1.6;max-width:640px}
+
+  /* CARDS */
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
+  .card{border:1px solid var(--border);padding:36px 28px;border-radius:4px;position:relative;overflow:hidden;transition:transform .3s,border-color .3s,background .45s;background:var(--bg2)}
+  .card:hover{transform:translateY(-6px);border-color:var(--accent)}
+  .card .ico{font-size:34px;margin-bottom:18px}
+  .card h3{font-size:20px;margin-bottom:12px;text-transform:uppercase;letter-spacing:1px}
+  .card p{color:var(--dim);font-size:15px;line-height:1.65}
+
+  /* QUOTE */
+  .quote{border-left:4px solid var(--accent);padding-left:32px;font-size:clamp(20px,3vw,30px);line-height:1.4;font-weight:300;max-width:820px}
+  .quote small{display:block;margin-top:20px;color:var(--dim);font-size:14px;letter-spacing:2px;text-transform:uppercase}
+
+  /* KONTAKT */
+  .contact{background:var(--accent);color:var(--on-accent);border-radius:8px;padding:70px 50px;display:flex;flex-wrap:wrap;gap:40px;justify-content:space-between;align-items:center;transition:background .45s}
+  .contact h2{color:var(--on-accent);margin-bottom:14px}
+  .contact p{font-size:16px;line-height:1.7;max-width:460px}
+  .contact a.btn{display:inline-block;background:var(--on-accent);color:var(--accent);padding:20px 42px;font-family:var(--font-display);text-transform:uppercase;text-decoration:none;font-size:16px;border-radius:4px;transition:transform .2s;letter-spacing:1px}
+  .contact a.btn:hover{transform:scale(1.05)}
+  .contact .meta{font-size:14px;line-height:2}
+
+  footer{padding:36px 40px;color:var(--dim);font-size:12px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;border-top:1px solid var(--border)}
+
+  .reveal{opacity:0;transform:translateY(36px);transition:opacity .8s,transform .8s}
+  .reveal.vis{opacity:1;transform:none}
+
+  /* ============ PASEK WYBORU PALETY ============ */
+  #picker{position:fixed;left:0;right:0;bottom:0;z-index:300;background:color-mix(in srgb,var(--bg2) 92%,transparent);
+    backdrop-filter:blur(14px);border-top:1px solid var(--border);padding:12px 18px;
+    display:flex;align-items:center;gap:14px;overflow-x:auto;transition:background .45s}
+  #picker .title{font-family:var(--font-display);font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--dim);white-space:nowrap;flex:none}
+  .swatch{flex:none;display:flex;flex-direction:column;align-items:center;gap:5px;cursor:pointer;background:none;border:none;padding:0}
+  .swatch .dot{width:34px;height:34px;border-radius:50%;border:2px solid var(--border);transition:transform .2s,border-color .2s,box-shadow .2s}
+  .swatch:hover .dot{transform:scale(1.12)}
+  .swatch.active .dot{border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 35%,transparent);transform:scale(1.12)}
+  .swatch .nm{font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--dim);white-space:nowrap}
+  .swatch.active .nm{color:var(--ink)}
+  #picker::-webkit-scrollbar{height:6px}
+  #picker::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+
+  @media(max-width:700px){nav .links{display:none}section{padding:70px 22px}.hero{padding:0 22px}}
+</style>
+</head>
+<body data-theme="volt">
+<div id="glow"></div>
+
+<nav>
+  <div class="logo">KA<b>.</b></div>
+  <div class="links">
+    <a href="#historia">Historia</a><a href="#trening">Treningi</a><a href="#klub">Klub</a><a href="#kontakt">Kontakt</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <svg id="traj" viewBox="0 0 1440 800" preserveAspectRatio="none">
+    <path d="M -50 620 Q 400 80 760 300 T 1500 200"/>
+  </svg>
+  <div id="shuttle">🏸</div>
+  <h1>
+    <span class="line"><span>Kamila</span></span>
+    <span class="line"><span>Augustyn</span></span>
+  </h1>
+  <p class="sub"><b>16-krotna Mistrzyni Polski</b> w badmintonie. Dwukrotna olimpijka — Pekin 2008 i Londyn 2012. Dziś dzieli się doświadczeniem na kortach Klubu Badmintona Garnizon w Gdańsku.</p>
+  <div class="scroll-hint">Scroll ↓</div>
+</header>
+
+<div class="marquee"><div class="track">
+  <span>16× <em>Mistrzyni Polski</em></span><span>Pekin <em>2008</em></span><span>Londyn <em>2012</em></span><span>Denmark Open <em>2006</em></span><span>Brąz ME <em>2008</em></span><span>Gdańsk <em>Garnizon</em></span>
+  <span>16× <em>Mistrzyni Polski</em></span><span>Pekin <em>2008</em></span><span>Londyn <em>2012</em></span><span>Denmark Open <em>2006</em></span><span>Brąz ME <em>2008</em></span><span>Gdańsk <em>Garnizon</em></span>
+</div></div>
+
+<section class="reveal">
+  <div class="kicker">Bilans kariery</div>
+  <h2>Liczby nie kłamią</h2>
+  <div class="stats">
+    <div class="stat"><div class="num" data-count="16">0</div><div class="lbl">tytułów Indywidualnej Mistrzyni Polski w singlu kobiet</div></div>
+    <div class="stat"><div class="num" data-count="2">0</div><div class="lbl">starty na Igrzyskach Olimpijskich — Pekin 2008, Londyn 2012</div></div>
+    <div class="stat"><div class="num" data-count="30">0</div><div class="lbl">lat na korcie — od lekcji WF w Słupsku po światowe areny</div></div>
+    <div class="stat"><div class="num" data-count="9">0</div><div class="lbl">profesjonalnych kortów w Klubie Garnizon, gdzie dziś trenuje i uczy</div></div>
+  </div>
+</section>
+
+<section id="historia" class="reveal">
+  <div class="kicker">Droga</div>
+  <h2>Historia zapisana lotką</h2>
+  <div class="timeline">
+    <div class="tl-item"><div class="year">1991</div><h3>Początek w Słupsku</h3><p>Dziewięcioletnia Kamila bierze rakietkę do ręki na lekcji WF. Leworęczna, szybka, uparta — trafia do klubu Piast Słupsk.</p></div>
+    <div class="tl-item"><div class="year">1999–2001</div><h3>Medale Mistrzostw Europy Juniorów</h3><p>Brąz w singlu (1999), potem złoto w deblu i srebro w singlu (2001). Europa poznaje jej nazwisko.</p></div>
+    <div class="tl-item"><div class="year">2006</div><h3>Denmark Open — tytuł elity</h3><p>Zwycięstwo w deblu kobiet z Nadieżdą Kostiuczyk w jednym z najbardziej prestiżowych turniejów świata.</p></div>
+    <div class="tl-item"><div class="year">2008</div><h3>Pekin i brąz ME drużyn</h3><p>Debiut olimpijski w singlu kobiet oraz brązowy medal Mistrzostw Europy w drużynach mieszanych.</p></div>
+    <div class="tl-item"><div class="year">2012</div><h3>Londyn — drugie igrzyska</h3><p>Ponownie wśród olimpijskiej elity. Najwyższy ranking kariery: #54 na świecie w deblu, #66 w singlu.</p></div>
+    <div class="tl-item"><div class="year">2019</div><h3>16. tytuł Mistrzyni Polski</h3><p>Gniezno, 55. IMP: finał 21:19, 21:19 z Wiktorią Dąbczyńską. Cały turniej bez straty seta. Rekord, który mówi sam za siebie.</p></div>
+    <div class="tl-item"><div class="year">Dziś</div><h3>Gdańsk — Klub Badmintona Garnizon</h3><p>Łączy własne starty z zarządzaniem klubem i szkoleniem nowego pokolenia. Badminton to dla niej wciąż codzienność.</p></div>
+  </div>
+</section>
+
+<section id="trening" class="reveal">
+  <div class="kicker">Oferta</div>
+  <h2>Trenuj z mistrzynią</h2>
+  <div class="cards">
+    <div class="card"><div class="ico">🎯</div><h3>Trening indywidualny</h3><p>Technika, taktyka i praca nad detalami pod okiem zawodniczki, która wygrała wszystko, co w Polsce można wygrać.</p></div>
+    <div class="card"><div class="ico">👥</div><h3>Zajęcia grupowe</h3><p>Od pierwszego kroku po grę turniejową. Grupy dla dorosłych i młodzieży na każdym poziomie zaawansowania.</p></div>
+    <div class="card"><div class="ico">🏆</div><h3>Szkolenie zawodnicze</h3><p>Program dla ambitnych — budowanie formy startowej, przygotowanie motoryczne i mentalne oparte na doświadczeniu olimpijskim.</p></div>
+    <div class="card"><div class="ico">🏢</div><h3>Eventy firmowe</h3><p>Turnieje i integracje na 9 kortach Garnizonu. Badminton spala ok. 400 kcal na godzinę — najlepszy team building pod dachem.</p></div>
+  </div>
+</section>
+
+<section class="reveal">
+  <blockquote class="quote">„Badminton to wszechstronna aktywność — rozwija różne grupy mięśni, poprawia szybkość, zwinność, wytrzymałość i kondycję."
+  <small>— Kamila Augustyn, magazyn Garnizon.pl</small></blockquote>
+</section>
+
+<section id="klub" class="reveal">
+  <div class="kicker">Baza</div>
+  <h2>Klub Badmintona Garnizon</h2>
+  <div class="cards">
+    <div class="card"><div class="ico">📍</div><h3>Lokalizacja</h3><p>ul. Juliusza Słowackiego 7a, Gdańsk-Wrzeszcz — serce Garnizonu Kultury, dawne koszary zamienione w nowoczesną halę.</p></div>
+    <div class="card"><div class="ico">🕕</div><h3>Godziny</h3><p>Codziennie 6:00–23:30. 9 pełnowymiarowych kortów z nawierzchnią amortyzującą, strefa fitness, szatnie z prysznicami.</p></div>
+    <div class="card"><div class="ico">💰</div><h3>Cennik kortów</h3><p>Pon–pt do 15:00 — 65 zł/h, popołudnia i weekendy — 75 zł/h. Wynajem rakietki 10 zł. Zacznij bez własnego sprzętu.</p></div>
+  </div>
+</section>
+
+<section id="kontakt" class="reveal">
+  <div class="contact">
+    <div>
+      <h2>Zagraj z nami</h2>
+      <p>Umów trening, zarezerwuj kort albo po prostu przyjdź zobaczyć, dlaczego badminton wciąga na całe życie.</p>
+    </div>
+    <div class="meta">
+      <div><b>info@badmintongarnizon.pl</b></div>
+      <div>606 962 559 · 58 760 76 80</div>
+      <div>ul. Słowackiego 7a, Gdańsk</div>
+      <div style="margin-top:18px"><a class="btn" href="mailto:info@badmintongarnizon.pl">Napisz do nas</a></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div>© 2026 Kamila Augustyn · Klub Badmintona Garnizon</div>
+  <div>Koncept SMASH — wybierz paletę na pasku poniżej</div>
+</footer>
+
+<!-- pasek wyboru palety -->
+<div id="picker">
+  <span class="title">Paleta:</span>
+  <!-- swatche generowane w JS -->
+</div>
+
+<script>
+  // ===== palety =====
+  const THEMES=[
+    {id:'volt',   name:'1 · Volt (oryginał)', bg:'#0a0a0c', ac:'#d9ff3d'},
+    {id:'ocean',  name:'2 · Ocean',           bg:'#071018', ac:'#35e0ff'},
+    {id:'ember',  name:'3 · Ember',           bg:'#120e0c', ac:'#ff6b35'},
+    {id:'punch',  name:'4 · Punch',           bg:'#14090f', ac:'#ff4f8b'},
+    {id:'forest', name:'5 · Forest',          bg:'#0a120d', ac:'#4dffa6'},
+    {id:'papier', name:'6 · Papier',          bg:'#f7f5f0', ac:'#ff5a36'},
+    {id:'lod',    name:'7 · Lód',             bg:'#f1f4f7', ac:'#0066ff'},
+    {id:'oliwka', name:'8 · Oliwka',          bg:'#f5f2e6', ac:'#6da600'},
+    {id:'lawenda',name:'9 · Lawenda',         bg:'#f4f2fb', ac:'#6c4fff'},
+    {id:'piasek', name:'10 · Piasek',         bg:'#efe8dc', ac:'#0e8f7e'},
+  ];
+  const picker=document.getElementById('picker');
+  THEMES.forEach((t,i)=>{
+    const b=document.createElement('button');b.className='swatch';b.title=t.name;
+    b.innerHTML=`<span class="dot" style="background:linear-gradient(135deg,${t.bg} 50%,${t.ac} 50%)"></span><span class="nm">${t.name.split('·')[1].trim()}</span>`;
+    b.onclick=()=>setTheme(t.id);
+    picker.appendChild(b);
+  });
+  function setTheme(id){
+    document.body.dataset.theme=id;
+    [...picker.querySelectorAll('.swatch')].forEach((s,i)=>s.classList.toggle('active',THEMES[i].id===id));
+    try{localStorage.setItem('ka-theme',id)}catch(e){}
+  }
+  setTheme((()=>{try{return localStorage.getItem('ka-theme')||'volt'}catch(e){return 'volt'}})());
+
+  // klawisze 1-9 i 0
+  addEventListener('keydown',e=>{
+    if(e.target.matches('input,textarea'))return;
+    const n=e.key==='0'?9:+e.key-1;
+    if(n>=0&&n<10&&!isNaN(n))setTheme(THEMES[n].id);
+  });
+
+  // cursor glow
+  const glow=document.getElementById('glow');
+  addEventListener('mousemove',e=>{glow.style.left=e.clientX+'px';glow.style.top=e.clientY+'px'});
+
+  // reveal on scroll
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis')}),{threshold:.12});
+  document.querySelectorAll('.reveal,.tl-item').forEach(el=>io.observe(el));
+
+  // counters
+  const cio=new IntersectionObserver(es=>es.forEach(e=>{
+    if(!e.isIntersecting)return;cio.unobserve(e.target);
+    const el=e.target,end=+el.dataset.count,t0=performance.now();
+    (function tick(t){const p=Math.min((t-t0)/1400,1);el.textContent=Math.round(end*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(tick)})(t0);
+  }),{threshold:.6});
+  document.querySelectorAll('[data-count]').forEach(el=>cio.observe(el));
+</script>
+</body>
+</html>

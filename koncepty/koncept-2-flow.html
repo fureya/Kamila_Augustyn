@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kamila Augustyn — Badminton | Koncept 2: FLOW</title>
+<style>
+  :root{
+    --paper:#faf8f4; --ink:#1c2733; --navy:#16324f; --coral:#e8604c; --sand:#efe9df; --dim:#6b7684;
+    --serif:Georgia,'Times New Roman',serif;
+    --sans:'Segoe UI',system-ui,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--paper);color:var(--ink);font-family:var(--sans);overflow-x:hidden;line-height:1.6}
+  ::selection{background:var(--coral);color:#fff}
+
+  /* floating gradient blobs */
+  .blob{position:fixed;border-radius:50%;filter:blur(90px);opacity:.35;z-index:0;pointer-events:none}
+  .blob.b1{width:520px;height:520px;background:#f6c9b8;top:-140px;right:-120px;animation:drift 18s ease-in-out infinite alternate}
+  .blob.b2{width:420px;height:420px;background:#c9dcf0;bottom:-100px;left:-140px;animation:drift 22s ease-in-out infinite alternate-reverse}
+  @keyframes drift{from{transform:translate(0,0) scale(1)}to{transform:translate(60px,40px) scale(1.15)}}
+
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;
+    padding:22px 48px;backdrop-filter:blur(12px);background:rgba(250,248,244,.7);border-bottom:1px solid rgba(28,39,51,.06)}
+  nav .logo{font-family:var(--serif);font-size:20px;font-style:italic}
+  nav .logo b{color:var(--coral)}
+  nav .links a{color:var(--ink);text-decoration:none;margin-left:30px;font-size:14px;position:relative}
+  nav .links a::after{content:'';position:absolute;left:0;bottom:-4px;width:0;height:2px;background:var(--coral);transition:width .3s}
+  nav .links a:hover::after{width:100%}
+
+  main{position:relative;z-index:1}
+
+  /* HERO */
+  .hero{min-height:100vh;display:grid;grid-template-columns:1.2fr .8fr;align-items:center;gap:48px;
+    max-width:1200px;margin:0 auto;padding:120px 48px 60px}
+  .hero .eyebrow{font-size:13px;letter-spacing:3px;text-transform:uppercase;color:var(--coral);margin-bottom:22px;opacity:0;animation:up 1s .1s forwards}
+  .hero h1{font-family:var(--serif);font-size:clamp(44px,6.5vw,84px);line-height:1.05;font-weight:400;opacity:0;animation:up 1s .25s forwards}
+  .hero h1 em{font-style:italic;color:var(--navy);display:block}
+  .hero p{margin-top:26px;font-size:18px;color:var(--dim);max-width:480px;opacity:0;animation:up 1s .45s forwards}
+  .hero .cta{margin-top:36px;display:flex;gap:16px;flex-wrap:wrap;opacity:0;animation:up 1s .6s forwards}
+  @keyframes up{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+  .btn{display:inline-block;padding:16px 34px;border-radius:100px;text-decoration:none;font-size:15px;transition:transform .25s,box-shadow .25s}
+  .btn.primary{background:var(--navy);color:#fff}
+  .btn.ghost{border:1.5px solid var(--navy);color:var(--navy)}
+  .btn:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(22,50,79,.18)}
+
+  .portrait-wrap{position:relative;justify-self:center;opacity:0;animation:up 1.1s .5s forwards}
+  .portrait{width:min(340px,80vw);aspect-ratio:4/5;object-fit:cover;border-radius:170px 170px 12px 12px;
+    filter:saturate(.9);box-shadow:0 30px 60px rgba(22,50,79,.22)}
+  .portrait-wrap .ring{position:absolute;inset:-16px;border:1.5px dashed var(--coral);border-radius:186px 186px 20px 20px;animation:none;opacity:.5}
+  .portrait-wrap .badge{position:absolute;bottom:22px;left:-40px;background:#fff;border-radius:14px;padding:14px 20px;
+    box-shadow:0 14px 34px rgba(22,50,79,.16);font-size:13px;line-height:1.4}
+  .portrait-wrap .badge b{display:block;font-size:22px;color:var(--coral);font-family:var(--serif)}
+
+  section{max-width:1200px;margin:0 auto;padding:100px 48px;position:relative}
+  .kicker{font-size:13px;letter-spacing:3px;text-transform:uppercase;color:var(--coral);margin-bottom:16px}
+  h2{font-family:var(--serif);font-size:clamp(32px,4.5vw,52px);font-weight:400;line-height:1.15;margin-bottom:36px}
+  h2 em{font-style:italic;color:var(--navy)}
+
+  /* ribbon stats */
+  .ribbon{background:var(--navy);color:#fff;border-radius:24px;padding:56px 48px;display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:36px}
+  .ribbon .num{font-family:var(--serif);font-size:56px;color:#f6c9b8}
+  .ribbon .lbl{font-size:14px;opacity:.85;margin-top:6px;line-height:1.5}
+
+  /* story steps — sticky flow */
+  .story{display:grid;grid-template-columns:1fr 1fr;gap:60px}
+  .story .sticky{position:sticky;top:140px;align-self:start;height:fit-content}
+  .story .steps .step{padding:44px 0;border-bottom:1px solid rgba(28,39,51,.1);opacity:.25;transition:opacity .5s}
+  .story .steps .step.active{opacity:1}
+  .step .yr{font-family:var(--serif);font-size:30px;color:var(--coral);font-style:italic}
+  .step h3{font-size:20px;margin:8px 0}
+  .step p{color:var(--dim);font-size:15.5px}
+
+  /* offer cards */
+  .offers{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:22px}
+  .offer{background:#fff;border-radius:20px;padding:38px 30px;box-shadow:0 6px 24px rgba(22,50,79,.07);
+    transition:transform .3s,box-shadow .3s;position:relative;overflow:hidden}
+  .offer::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--coral),#f6c9b8);transform:scaleX(0);transform-origin:left;transition:transform .35s}
+  .offer:hover{transform:translateY(-8px);box-shadow:0 20px 44px rgba(22,50,79,.14)}
+  .offer:hover::before{transform:scaleX(1)}
+  .offer .ico{width:54px;height:54px;border-radius:14px;background:var(--sand);display:flex;align-items:center;justify-content:center;font-size:26px;margin-bottom:20px}
+  .offer h3{font-size:19px;margin-bottom:10px}
+  .offer p{color:var(--dim);font-size:15px}
+
+  /* quote */
+  .bigquote{text-align:center;max-width:800px;margin:0 auto}
+  .bigquote p{font-family:var(--serif);font-size:clamp(22px,3.4vw,34px);font-style:italic;line-height:1.45;color:var(--navy)}
+  .bigquote small{display:block;margin-top:22px;font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--dim);font-family:var(--sans)}
+
+  /* contact */
+  .contact{background:var(--sand);border-radius:28px;padding:64px 56px;display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:center}
+  .contact .info div{margin-bottom:14px;font-size:16px}
+  .contact .info b{color:var(--navy)}
+  .contact form{display:grid;gap:14px}
+  .contact input,.contact textarea{border:1.5px solid rgba(28,39,51,.15);background:#fff;border-radius:12px;padding:15px 18px;font-family:var(--sans);font-size:15px;outline:none;transition:border-color .2s}
+  .contact input:focus,.contact textarea:focus{border-color:var(--coral)}
+  .contact button{background:var(--coral);color:#fff;border:none;border-radius:100px;padding:16px;font-size:15px;cursor:pointer;transition:transform .2s}
+  .contact button:hover{transform:translateY(-2px)}
+
+  footer{text-align:center;padding:40px;color:var(--dim);font-size:13px}
+
+  .reveal{opacity:0;transform:translateY(40px);transition:opacity .9s,transform .9s}
+  .reveal.vis{opacity:1;transform:none}
+
+  @media(max-width:860px){
+    .hero{grid-template-columns:1fr;padding-top:110px;text-align:center}
+    .hero p{margin-left:auto;margin-right:auto}.hero .cta{justify-content:center}
+    .portrait-wrap .badge{left:0}
+    .story{grid-template-columns:1fr}.story .sticky{position:static}
+    .contact{grid-template-columns:1fr;padding:44px 28px}
+    nav .links{display:none}section{padding:70px 24px}
+  }
+</style>
+</head>
+<body>
+<div class="blob b1"></div><div class="blob b2"></div>
+
+<nav>
+  <div class="logo">Kamila <b>Augustyn</b></div>
+  <div class="links">
+    <a href="#droga">Droga</a><a href="#oferta">Oferta</a><a href="#klub">Klub</a><a href="#kontakt">Kontakt</a>
+  </div>
+</nav>
+
+<main>
+<header class="hero">
+  <div>
+    <div class="eyebrow">Mistrzyni · Olimpijka · Trenerka</div>
+    <h1>Gra, która trwa <em>całe życie.</em></h1>
+    <p>Nazywam się Kamila Augustyn. Zdobyłam 16 tytułów Mistrzyni Polski i dwa razy stanęłam na olimpijskim korcie. Dziś w gdańskim Garnizonie pomagam innym pokochać badminton.</p>
+    <div class="cta">
+      <a class="btn primary" href="#kontakt">Umów trening</a>
+      <a class="btn ghost" href="#droga">Poznaj moją historię</a>
+    </div>
+  </div>
+  <div class="portrait-wrap">
+    <div class="ring"></div>
+    <img class="portrait" src="../zdjecia/kamila_augustyn_profil_olimpijski.jpg" alt="Kamila Augustyn — portret">
+    <div class="badge"><b>16×</b>Mistrzyni Polski<br>w singlu kobiet</div>
+  </div>
+</header>
+
+<section class="reveal">
+  <div class="ribbon">
+    <div><div class="num" data-count="16">0</div><div class="lbl">tytułów Mistrzyni Polski w grze pojedynczej</div></div>
+    <div><div class="num" data-count="2">0</div><div class="lbl">występy olimpijskie — Pekin 2008, Londyn 2012</div></div>
+    <div><div class="num" data-count="3">0</div><div class="lbl">medale Mistrzostw Europy (juniorskie i seniorskie)</div></div>
+    <div><div class="num" data-count="1">0</div><div class="lbl">zwycięstwo w Denmark Open 2006 — turnieju światowej elity</div></div>
+  </div>
+</section>
+
+<section id="droga" class="reveal">
+  <div class="story">
+    <div class="sticky">
+      <div class="kicker">Moja droga</div>
+      <h2>Od lekcji WF <em>na szczyt Europy</em></h2>
+      <p style="color:var(--dim);max-width:400px">Przewiń, aby zobaczyć kolejne rozdziały — od dziewięcioletniej dziewczynki ze Słupska po zawodniczkę, która przez dwie dekady nie oddała nikomu polskiego singla.</p>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="yr">1991</div><h3>Słupsk — pierwsze uderzenie</h3><p>Badminton na lekcji WF. Miłość od pierwszej wymiany. Klub Piast Słupsk i pierwsze turnieje.</p></div>
+      <div class="step"><div class="yr">2001</div><h3>Złoto Mistrzostw Europy Juniorów</h3><p>Złoto w deblu i srebro w singlu. Do tego brąz z 1999 roku — Europa już wie, kim jest.</p></div>
+      <div class="step"><div class="yr">2006</div><h3>Denmark Open</h3><p>Wygrana w deblu z Nadieżdą Kostiuczyk w duńskiej świątyni badmintona — pierwszy tytuł rangi elite.</p></div>
+      <div class="step"><div class="yr">2008 · 2012</div><h3>Pekin i Londyn</h3><p>Dwa występy olimpijskie w singlu kobiet i brązowy medal ME drużyn mieszanych 2008.</p></div>
+      <div class="step"><div class="yr">2019</div><h3>Szesnasty tytuł</h3><p>Gniezno: finał 21:19, 21:19. Cały turniej bez straty seta. Rekordowa, 16. korona Mistrzyni Polski.</p></div>
+      <div class="step"><div class="yr">dziś</div><h3>Gdańsk — nowy rozdział</h3><p>Klub Badmintona Garnizon: własne starty, zarządzanie klubem i przekazywanie pasji kolejnym pokoleniom.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="oferta" class="reveal">
+  <div class="kicker">Oferta</div>
+  <h2>Czego mogę Cię <em>nauczyć?</em></h2>
+  <div class="offers">
+    <div class="offer"><div class="ico">🏸</div><h3>Trening indywidualny</h3><p>Sam na sam z mistrzynią — technika, footwork i taktyka dopasowane do Twojego poziomu i celów.</p></div>
+    <div class="offer"><div class="ico">🌱</div><h3>Pierwsze kroki</h3><p>Nigdy nie grałeś? Świetnie. Nauczysz się szybciej, niż myślisz — a rakietkę wypożyczysz na miejscu.</p></div>
+    <div class="offer"><div class="ico">⚡</div><h3>Szkolenie zawodnicze</h3><p>Dla grających turniejowo: periodyzacja, przygotowanie motoryczne i mentalne oparte na doświadczeniu z dwóch igrzysk.</p></div>
+    <div class="offer"><div class="ico">🤝</div><h3>Grupy i eventy</h3><p>Zajęcia grupowe, turnieje firmowe i integracje na dziewięciu kortach Garnizonu Kultury.</p></div>
+  </div>
+</section>
+
+<section class="reveal">
+  <div class="bigquote">
+    <p>„Nie żałuję żadnego poświęcenia. Badminton dał mi wszystko — teraz chcę, żeby dał coś Tobie."</p>
+    <small>Kamila Augustyn</small>
+  </div>
+</section>
+
+<section id="klub" class="reveal">
+  <div class="kicker">Miejsce</div>
+  <h2>Klub Badmintona <em>Garnizon</em></h2>
+  <div class="offers">
+    <div class="offer"><div class="ico">📍</div><h3>Gdańsk-Wrzeszcz</h3><p>ul. Juliusza Słowackiego 7a — w sercu Garnizonu Kultury, w pięknie odrestaurowanych dawnych koszarach.</p></div>
+    <div class="offer"><div class="ico">🕰️</div><h3>Codziennie 6:00–23:30</h3><p>9 pełnowymiarowych kortów z nawierzchnią amortyzującą, strefa fitness, szatnie z prysznicami i sala klubowa.</p></div>
+    <div class="offer"><div class="ico">🎟️</div><h3>Przystępne ceny</h3><p>Kort od 65 zł/h (pon–pt do 15:00), 75 zł/h wieczorami i w weekendy. Rakietka — 10 zł.</p></div>
+  </div>
+</section>
+
+<section id="kontakt" class="reveal">
+  <div class="contact">
+    <div>
+      <div class="kicker">Kontakt</div>
+      <h2>Zacznijmy <em>grać</em></h2>
+      <div class="info">
+        <div>✉️ <b>info@badmintongarnizon.pl</b></div>
+        <div>📞 606 962 559 · 58 760 76 80</div>
+        <div>📍 ul. Słowackiego 7a, 80-257 Gdańsk</div>
+      </div>
+    </div>
+    <form onsubmit="event.preventDefault();alert('Dziękujemy! (demo — formularz podłączymy w wersji produkcyjnej)')">
+      <input type="text" placeholder="Imię i nazwisko" required>
+      <input type="email" placeholder="Adres e-mail" required>
+      <textarea rows="4" placeholder="Napisz, czego szukasz — trening, grupa, event…"></textarea>
+      <button type="submit">Wyślij wiadomość</button>
+    </form>
+  </div>
+</section>
+</main>
+
+<footer>© 2026 Kamila Augustyn · Koncept 2 — „FLOW": jasny, premium, płynny</footer>
+
+<script>
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis')}),{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  // step highlight while scrolling
+  const sio=new IntersectionObserver(es=>es.forEach(e=>{e.target.classList.toggle('active',e.isIntersecting)}),{rootMargin:'-35% 0px -35% 0px'});
+  document.querySelectorAll('.step').forEach(el=>sio.observe(el));
+
+  // counters
+  const cio=new IntersectionObserver(es=>es.forEach(e=>{
+    if(!e.isIntersecting)return;cio.unobserve(e.target);
+    const el=e.target,end=+el.dataset.count,t0=performance.now();
+    (function tick(t){const p=Math.min((t-t0)/1300,1);el.textContent=Math.round(end*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(tick)})(t0);
+  }),{threshold:.6});
+  document.querySelectorAll('[data-count]').forEach(el=>cio.observe(el));
+
+  // fallback if portrait missing
+  document.querySelector('.portrait').onerror=function(){this.style.display='none';this.parentElement.querySelector('.ring').style.background='linear-gradient(160deg,#f6c9b8,#c9dcf0)';}
+</script>
+</body>
+</html>

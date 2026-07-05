@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kamila Augustyn — Badminton | Koncept 3: GARNIZON RETRO-MODERN</title>
+<style>
+  :root{
+    --cream:#f3ead8; --brick:#b8402e; --navy:#1e3a5f; --mustard:#d9a441; --ink:#22201b;
+    --display:'Impact','Arial Black',sans-serif;
+    --mono:'Courier New',monospace;
+    --body:'Segoe UI',system-ui,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--cream);color:var(--ink);font-family:var(--body);overflow-x:hidden}
+  ::selection{background:var(--mustard)}
+
+  /* paper grain */
+  body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:200;opacity:.5;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3CfeColorMatrix values='0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .04 0'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:space-between;align-items:center;
+    padding:16px 36px;background:var(--cream);border-bottom:3px solid var(--ink)}
+  nav .logo{font-family:var(--display);font-size:20px;letter-spacing:1px;text-transform:uppercase}
+  nav .logo span{color:var(--brick)}
+  nav .links a{color:var(--ink);text-decoration:none;margin-left:26px;font-family:var(--mono);font-size:13px;text-transform:uppercase;letter-spacing:1px;border-bottom:2px solid transparent;transition:border-color .2s}
+  nav .links a:hover{border-color:var(--brick)}
+
+  /* HERO — poster style */
+  .hero{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;
+    padding:110px 24px 60px;position:relative;
+    background:
+      repeating-linear-gradient(0deg,transparent 0 79px,rgba(30,58,95,.06) 79px 80px),
+      repeating-linear-gradient(90deg,transparent 0 79px,rgba(30,58,95,.06) 79px 80px)}
+  .hero .est{font-family:var(--mono);font-size:14px;letter-spacing:4px;text-transform:uppercase;color:var(--brick);margin-bottom:20px;opacity:0;animation:pop .7s .1s forwards}
+  .hero h1{font-family:var(--display);font-size:clamp(52px,11vw,150px);line-height:.95;text-transform:uppercase;color:var(--navy);
+    text-shadow:5px 5px 0 var(--mustard);opacity:0;animation:pop .7s .25s forwards}
+  .hero h1 .alt{color:var(--brick);text-shadow:5px 5px 0 rgba(30,58,95,.25)}
+  .hero .tagline{margin-top:26px;font-family:var(--mono);font-size:clamp(14px,2vw,18px);letter-spacing:2px;max-width:640px;opacity:0;animation:pop .7s .45s forwards}
+  @keyframes pop{from{opacity:0;transform:translateY(24px) scale(.97)}to{opacity:1;transform:none}}
+
+  /* rotating stamp */
+  .stamp{position:absolute;right:6%;bottom:10%;width:150px;height:150px;animation:spin 16s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .stamp text{font-family:var(--mono);font-size:11.5px;letter-spacing:2.5px;text-transform:uppercase;fill:var(--brick)}
+  .stamp .center{font-size:44px}
+
+  /* ticket strip */
+  .strip{background:var(--navy);color:var(--cream);overflow:hidden;white-space:nowrap;padding:14px 0;border-top:3px solid var(--ink);border-bottom:3px solid var(--ink)}
+  .strip .track{display:inline-block;animation:mq 20s linear infinite}
+  .strip span{font-family:var(--mono);font-size:15px;letter-spacing:2px;text-transform:uppercase;margin:0 26px}
+  .strip span::before{content:'★ ';color:var(--mustard)}
+  @keyframes mq{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+  section{max-width:1100px;margin:0 auto;padding:96px 32px}
+  .sec-head{display:flex;align-items:baseline;gap:18px;margin-bottom:44px;flex-wrap:wrap}
+  .sec-head .no{font-family:var(--mono);font-size:15px;color:var(--brick);letter-spacing:2px}
+  h2{font-family:var(--display);font-size:clamp(32px,5vw,58px);text-transform:uppercase;color:var(--navy);line-height:1}
+
+  /* trophy shelf — flip cards */
+  .shelf{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:20px}
+  .trophy{perspective:900px;height:230px;cursor:pointer}
+  .trophy .inner{position:relative;width:100%;height:100%;transition:transform .6s;transform-style:preserve-3d}
+  .trophy:hover .inner{transform:rotateY(180deg)}
+  .trophy .face{position:absolute;inset:0;backface-visibility:hidden;border:3px solid var(--ink);border-radius:10px;
+    display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:22px;
+    box-shadow:6px 6px 0 var(--ink)}
+  .trophy .front{background:#fff}
+  .trophy .front .big{font-family:var(--display);font-size:54px;color:var(--brick)}
+  .trophy .front .cap{font-family:var(--mono);font-size:13px;text-transform:uppercase;letter-spacing:1.5px;margin-top:8px}
+  .trophy .back{background:var(--mustard);transform:rotateY(180deg);font-size:14.5px;line-height:1.55}
+  .flip-hint{font-family:var(--mono);font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--brick);margin-top:18px;text-align:center}
+
+  /* horizontal timeline */
+  .h-scroll-outer{border:3px solid var(--ink);border-radius:12px;background:#fff;box-shadow:8px 8px 0 var(--ink);overflow:hidden}
+  .h-scroll{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch}
+  .h-scroll::-webkit-scrollbar{height:10px}
+  .h-scroll::-webkit-scrollbar-thumb{background:var(--brick);border-radius:5px}
+  .h-scroll::-webkit-scrollbar-track{background:var(--cream)}
+  .era{min-width:min(420px,86vw);scroll-snap-align:start;padding:44px 38px;border-right:3px dashed rgba(34,32,27,.25)}
+  .era .yr{font-family:var(--display);font-size:44px;color:var(--brick)}
+  .era h3{font-size:19px;margin:10px 0;text-transform:uppercase;letter-spacing:.5px}
+  .era p{font-size:15px;line-height:1.65;color:#4b4740}
+  .drag-hint{font-family:var(--mono);font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--brick);margin-top:16px;text-align:right}
+
+  /* dla duszy / dla ciała */
+  .duo{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  .duo .half{border:3px solid var(--ink);border-radius:12px;padding:40px 34px;box-shadow:6px 6px 0 var(--ink);transition:transform .25s}
+  .duo .half:hover{transform:translate(-3px,-3px)}
+  .duo .dusza{background:var(--brick);color:var(--cream)}
+  .duo .cialo{background:var(--navy);color:var(--cream)}
+  .duo h3{font-family:var(--display);font-size:30px;text-transform:uppercase;margin-bottom:16px}
+  .duo ul{list-style:none}
+  .duo li{padding:9px 0;border-bottom:1px dashed rgba(243,234,216,.35);font-size:15.5px}
+  .duo li::before{content:'→ ';color:var(--mustard)}
+
+  /* cennik — retro price list */
+  .pricelist{background:#fff;border:3px solid var(--ink);border-radius:12px;box-shadow:8px 8px 0 var(--ink);padding:44px;max-width:640px;margin:0 auto;font-family:var(--mono)}
+  .pricelist h3{font-family:var(--display);text-transform:uppercase;font-size:26px;text-align:center;color:var(--navy);margin-bottom:6px}
+  .pricelist .sub{text-align:center;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--brick);margin-bottom:26px}
+  .pricelist .row{display:flex;align-items:baseline;font-size:15px;padding:11px 0}
+  .pricelist .row .dots{flex:1;border-bottom:2px dotted #9a938a;margin:0 10px}
+  .pricelist .row b{color:var(--brick);font-size:17px}
+
+  /* contact poster */
+  .contact{background:var(--mustard);border:3px solid var(--ink);border-radius:14px;box-shadow:10px 10px 0 var(--ink);
+    padding:60px 48px;text-align:center}
+  .contact h2{margin-bottom:12px}
+  .contact p{font-size:16px;max-width:520px;margin:0 auto 28px}
+  .contact .row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+  .contact a{display:inline-block;background:var(--ink);color:var(--cream);text-decoration:none;font-family:var(--mono);
+    text-transform:uppercase;letter-spacing:1.5px;font-size:14px;padding:16px 30px;border-radius:8px;transition:transform .2s,background .2s}
+  .contact a:hover{transform:translate(-2px,-2px);background:var(--brick)}
+  .contact .addr{margin-top:26px;font-family:var(--mono);font-size:13px;letter-spacing:1px;text-transform:uppercase}
+
+  footer{text-align:center;padding:36px;font-family:var(--mono);font-size:12px;letter-spacing:1px;color:#6b655c;border-top:3px solid var(--ink)}
+
+  .reveal{opacity:0;transform:translateY(36px);transition:opacity .8s,transform .8s}
+  .reveal.vis{opacity:1;transform:none}
+  @media(max-width:760px){nav .links{display:none}.duo{grid-template-columns:1fr}.stamp{display:none}section{padding:66px 20px}.pricelist{padding:30px 22px}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Kamila <span>Augustyn</span></div>
+  <div class="links">
+    <a href="#trofea">Trofea</a><a href="#historia">Historia</a><a href="#badminton">Badminton</a><a href="#cennik">Cennik</a><a href="#kontakt">Kontakt</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="est">Słupsk 1991 — Gdańsk dziś ★ 16× Mistrzyni Polski</div>
+  <h1>Kamila<br><span class="alt">Augustyn</span></h1>
+  <p class="tagline">RUCH, KULTURA I ZABAWA — TO W TYM SPORCIE JEST PODSTAWA! Olimpijka z Pekinu i Londynu zaprasza na korty Garnizonu.</p>
+  <svg class="stamp" viewBox="0 0 150 150">
+    <defs><path id="circ" d="M 75,75 m -58,0 a 58,58 0 1,1 116,0 a 58,58 0 1,1 -116,0"/></defs>
+    <text><textPath href="#circ">★ Klub Badmintona Garnizon ★ Gdańsk Wrzeszcz ★ est. 2018 </textPath></text>
+    <text class="center" x="75" y="90" text-anchor="middle">🏸</text>
+  </svg>
+</header>
+
+<div class="strip"><div class="track">
+  <span>16× Mistrzyni Polski</span><span>Olimpijka Pekin 2008</span><span>Olimpijka Londyn 2012</span><span>Denmark Open 2006</span><span>Brąz ME 2008</span><span>Trenerka — Gdańsk</span>
+  <span>16× Mistrzyni Polski</span><span>Olimpijka Pekin 2008</span><span>Olimpijka Londyn 2012</span><span>Denmark Open 2006</span><span>Brąz ME 2008</span><span>Trenerka — Gdańsk</span>
+</div></div>
+
+<section id="trofea" class="reveal">
+  <div class="sec-head"><span class="no">Nº 01</span><h2>Gablota z trofeami</h2></div>
+  <div class="shelf">
+    <div class="trophy"><div class="inner">
+      <div class="face front"><div class="big">16×</div><div class="cap">Mistrzyni Polski</div></div>
+      <div class="face back">Rekordowe 16 tytułów w singlu kobiet. Ostatni — Gniezno 2019, finał 21:19, 21:19, cały turniej bez straty seta.</div>
+    </div></div>
+    <div class="trophy"><div class="inner">
+      <div class="face front"><div class="big">2×</div><div class="cap">Igrzyska Olimpijskie</div></div>
+      <div class="face back">Pekin 2008 i Londyn 2012 — gra pojedyncza kobiet. Najwyższy ranking kariery: #54 na świecie w deblu.</div>
+    </div></div>
+    <div class="trophy"><div class="inner">
+      <div class="face front"><div class="big">1st</div><div class="cap">Denmark Open 2006</div></div>
+      <div class="face back">Zwycięstwo w deblu kobiet z Nadieżdą Kostiuczyk — pierwszy polski tytuł tej rangi w świątyni badmintona.</div>
+    </div></div>
+    <div class="trophy"><div class="inner">
+      <div class="face front"><div class="big">🥉</div><div class="cap">Mistrzostwa Europy</div></div>
+      <div class="face back">Brąz ME 2008 w drużynach mieszanych oraz komplet medali ME juniorów: złoto, srebro i brąz (1999–2001).</div>
+    </div></div>
+  </div>
+  <div class="flip-hint">← najedź na kartę, aby ją odwrócić →</div>
+</section>
+
+<section id="historia" class="reveal">
+  <div class="sec-head"><span class="no">Nº 02</span><h2>Kronika kariery</h2></div>
+  <div class="h-scroll-outer"><div class="h-scroll">
+    <div class="era"><div class="yr">1991</div><h3>Słupsk</h3><p>Dziewięciolatka na lekcji WF bierze rakietkę do lewej ręki. Klub Piast Słupsk zyskuje talent, o którym za dekadę usłyszy cała Europa.</p></div>
+    <div class="era"><div class="yr">1999–2001</div><h3>Juniorska Europa</h3><p>Brąz, potem złoto w deblu i srebro w singlu Mistrzostw Europy Juniorów. Fundament pod seniorskie panowanie.</p></div>
+    <div class="era"><div class="yr">2002–2008</div><h3>Dominacja</h3><p>Seria tytułów mistrzyni Polski w singlu, deblu i mikście. Zwycięstwa w turniejach od Portugalii po Szkocję. Denmark Open 2006.</p></div>
+    <div class="era"><div class="yr">2008</div><h3>Pekin</h3><p>Debiut olimpijski i brązowy medal Mistrzostw Europy w drużynach mieszanych — najlepszy sezon w reprezentacji.</p></div>
+    <div class="era"><div class="yr">2012</div><h3>Londyn</h3><p>Drugie igrzyska i życiowe rankingi: #66 w singlu, #54 w deblu. Niewiele Polek może powiedzieć: „byłam tam dwa razy".</p></div>
+    <div class="era"><div class="yr">2019</div><h3>Korona nr 16</h3><p>55. IMP w Gnieźnie. „Dwie świetne zagrania Wiktorii, dwa moje błędy — 18:18, 19:19…" — a potem przyspieszenie i tytuł.</p></div>
+    <div class="era"><div class="yr">DZIŚ</div><h3>Garnizon, Gdańsk</h3><p>Zarządza klubem z 9 kortami w dawnych koszarach Wrzeszcza, wciąż gra i uczy — od pierwszego bekhendu po grę turniejową.</p></div>
+  </div></div>
+  <div class="drag-hint">przewiń poziomo →</div>
+</section>
+
+<section id="badminton" class="reveal">
+  <div class="sec-head"><span class="no">Nº 03</span><h2>Po co Ci badminton?</h2></div>
+  <div class="duo">
+    <div class="half dusza">
+      <h3>Dla duszy</h3>
+      <ul>
+        <li>Odstresowanie po pracy — kort zamiast kanapy</li>
+        <li>Endorfiny gwarantowane po każdej wymianie</li>
+        <li>Integracja — sport, który łączy pokolenia</li>
+        <li>Kultura Garnizonu: gra w pięknym miejscu</li>
+      </ul>
+    </div>
+    <div class="half cialo">
+      <h3>Dla ciała</h3>
+      <ul>
+        <li>Ok. 400 kcal spalonych w godzinę gry</li>
+        <li>Szybkość, zwinność i refleks</li>
+        <li>Wzmocnienie wielu grup mięśni</li>
+        <li>Kondycja, która zostaje na lata</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="cennik" class="reveal">
+  <div class="sec-head"><span class="no">Nº 04</span><h2>Cennik kortów</h2></div>
+  <div class="pricelist">
+    <h3>Klub Badmintona Garnizon</h3>
+    <div class="sub">Codziennie 6:00–23:30 · 9 kortów</div>
+    <div class="row"><span>Pon–Pt · 6:00–15:00</span><span class="dots"></span><b>65 zł/h</b></div>
+    <div class="row"><span>Pon–Pt · 15:00–23:00</span><span class="dots"></span><b>75 zł/h</b></div>
+    <div class="row"><span>Sob–Nd · cały dzień</span><span class="dots"></span><b>75 zł/h</b></div>
+    <div class="row"><span>Wynajem rakietki</span><span class="dots"></span><b>10 zł</b></div>
+    <div class="row"><span>Trening z Kamilą</span><span class="dots"></span><b>zapytaj ↓</b></div>
+  </div>
+</section>
+
+<section id="kontakt" class="reveal">
+  <div class="contact">
+    <h2>Widzimy się na korcie!</h2>
+    <p>Rezerwacje kortów, treningi indywidualne i grupowe, eventy firmowe — napisz lub zadzwoń.</p>
+    <div class="row">
+      <a href="mailto:info@badmintongarnizon.pl">✉ info@badmintongarnizon.pl</a>
+      <a href="tel:+48606962559">☎ 606 962 559</a>
+    </div>
+    <div class="addr">ul. Juliusza Słowackiego 7a · 80-257 Gdańsk-Wrzeszcz · Garnizon Kultury</div>
+  </div>
+</section>
+
+<footer>© 2026 Kamila Augustyn · Koncept 3 — „Garnizon Retro-Modern": vintage plakat + nowoczesne interakcje</footer>
+
+<script>
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis')}),{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  // drag-to-scroll for the horizontal timeline
+  const hs=document.querySelector('.h-scroll');let down=false,sx,sl;
+  hs.addEventListener('mousedown',e=>{down=true;sx=e.pageX;sl=hs.scrollLeft;hs.style.cursor='grabbing'});
+  addEventListener('mouseup',()=>{down=false;hs.style.cursor='grab'});
+  hs.addEventListener('mousemove',e=>{if(!down)return;hs.scrollLeft=sl-(e.pageX-sx)});
+  hs.style.cursor='grab';
+
+  // tap-to-flip on touch devices
+  document.querySelectorAll('.trophy').forEach(t=>t.addEventListener('click',()=>{
+    const i=t.querySelector('.inner');
+    i.style.transform=i.style.transform?'':'rotateY(180deg)';
+  }));
+</script>
+</body>
+</html>
