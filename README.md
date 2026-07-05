@@ -7,7 +7,7 @@ Strona-wizytówka Kamili Augustyn — 16-krotnej Indywidualnej Mistrzyni Polski 
 - **`index.html`** — finalna, jednoplikowa strona (HTML/CSS/JS bez zależności zewnętrznych). To jest wersja do publikacji, np. przez GitHub Pages.
 - **`koncepty/`** — trzy warianty projektowe rozważane przed wyborem finalnego kierunku (`koncept-1-smash.html`, `koncept-2-flow.html`, `koncept-3-retro.html`) oraz `koncept-1-smash-kolory.html` z przełącznikiem 10 palet kolorystycznych. Zachowane jako historia procesu projektowego — nie są linkowane z finalnej strony.
 - **`artykuly/`**, **`notatki_zrodla.md`** — materiały źródłowe (biogram, wyniki sportowe, dane klubu) użyte do zbudowania treści strony.
-- **`zdjecia/`** — pobrane miniatury z wyszukiwarki (patrz `zdjecia/README.txt` — zastrzeżenie licencyjne; przed użyciem w produkcji wymagana zgoda/materiały od klubu w wysokiej rozdzielczości).
+- **`zdjecia/`** (lokalnie, poza repozytorium) — pobrane miniatury z wyszukiwarki o niepewnej licencji, celowo wykluczone z repo (`.gitignore`) i z historii commitów. Finalna strona ich nie używa. Przed dodaniem prawdziwych zdjęć do strony należy pozyskać od klubu materiały w wysokiej rozdzielczości z potwierdzoną zgodą na publikację.
 
 ## Panel administracyjny
 
