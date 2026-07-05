@@ -191,6 +191,14 @@
   .addbtn{margin-top:6px;background:none;border:1px dashed var(--border);color:var(--dim);border-radius:6px;padding:10px;width:100%;cursor:pointer;font-size:13px}
   .addbtn:hover{color:var(--accent);border-color:var(--accent)}
 
+  .herogrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
+  .hero-thumb{position:relative;aspect-ratio:16/10;border-radius:6px;overflow:hidden;border:2px solid var(--border);cursor:pointer;padding:0;background:var(--bg)}
+  .hero-thumb img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .3s}
+  .hero-thumb:hover img{transform:scale(1.06)}
+  .hero-thumb.active{border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb,var(--accent) 30%,transparent)}
+  .uploadbtn{display:block;text-align:center;border:1px dashed var(--border);border-radius:6px;padding:12px;font-size:13px;color:var(--dim);cursor:pointer;transition:color .2s,border-color .2s}
+  .uploadbtn:hover{color:var(--accent);border-color:var(--accent)}
+
   .pinrow{display:flex;gap:8px}
   .pinrow input{flex:1;padding:10px 12px;border-radius:6px;border:1px solid var(--border);background:var(--bg);color:var(--ink);outline:none;letter-spacing:4px}
   .pinrow button{padding:10px 16px;border-radius:6px;border:1px solid var(--border);background:var(--bg);color:var(--ink);cursor:pointer;font-size:13px}
@@ -221,7 +229,7 @@
 </nav>
 
 <header class="hero">
-  <div class="hero-bg"><img src="img/kamila-augustyn-039.jpg" alt="Kamila Augustyn w akcji na korcie badmintona" loading="eager"></div>
+  <div class="hero-bg"><img id="heroImg" src="img/kamila-augustyn-039.jpg" alt="Kamila Augustyn w akcji na korcie badmintona" loading="eager"></div>
   <svg id="traj" viewBox="0 0 1440 800" preserveAspectRatio="none">
     <path d="M -50 620 Q 400 80 760 300 T 1500 200"/>
   </svg>
@@ -348,7 +356,7 @@
 <div class="overlay" id="pinOverlay">
   <div id="pinBox">
     <h3>Panel administracyjny</h3>
-    <p>Podaj PIN, aby edytować ceny i kolory strony</p>
+    <p>Podaj PIN, aby edytować zdjęcie hero, ceny i kolory strony</p>
     <input id="pinInput" type="password" inputmode="numeric" maxlength="8" placeholder="••••" autocomplete="off">
     <div class="err" id="pinErr"></div>
     <button id="pinGo">Odblokuj</button>
@@ -361,6 +369,14 @@
     <button class="close" id="admClose">✕</button>
   </header>
   <div class="body">
+
+    <div class="sec">
+      <label>Zdjęcie w tle sekcji Hero</label>
+      <div class="herogrid" id="heroGrid"></div>
+      <label class="uploadbtn" for="heroUpload">⤒ Prześlij własne zdjęcie</label>
+      <input type="file" id="heroUpload" accept="image/*" hidden>
+      <div class="hint">Własne zdjęcie jest automatycznie skalowane i zapisywane w tej przeglądarce (bez wysyłania na serwer). Najlepiej sprawdzi się poziome ujęcie z dobrym oświetleniem.</div>
+    </div>
 
     <div class="sec">
       <label>Kolorystyka — gotowe palety</label>
@@ -422,9 +438,20 @@
     {id:'lawenda',name:'Lawenda', bg:'#f4f2fb', ac:'#6c4fff'},
     {id:'piasek', name:'Piasek',  bg:'#efe8dc', ac:'#0e8f7e'},
   ];
+  const HERO_PRESETS=[
+    {src:'img/kamila-augustyn-039.jpg',  name:'Portret'},
+    {src:'img/kamila-augustyn-041.jpg',  name:'Bekhend'},
+    {src:'img/kamila-augustyn-049.jpg',  name:'Serwis'},
+    {src:'img/kamila-augustyn-056.jpg',  name:'Debel'},
+    {src:'img/kamila-augustyn-061.jpg',  name:'Suwałki'},
+    {src:'img/kamila-augustyn-071.jpg',  name:'Gniezno 2019'},
+    {src:'img/kamila-augustyn-091.jpg',  name:'Atak'},
+    {src:'img/kamila-augustyn-111.jpg',  name:'Mikst'},
+  ];
   const DEFAULTS={
     pin:'1982',
     theme:'volt',
+    hero:'img/kamila-augustyn-039.jpg',
     custom:{on:false,bg:'#0a0a0c',accent:'#d9ff3d'},
     trainings:[
       {label:'Trening indywidualny · 60 min',price:'150 zł'},
@@ -450,7 +477,10 @@
       return {...structuredClone(DEFAULTS),...j,custom:{...DEFAULTS.custom,...(j.custom||{})}};
     }catch(e){return structuredClone(DEFAULTS)}
   }
-  function persist(){localStorage.setItem(KEY,JSON.stringify(S))}
+  function persist(){
+    try{localStorage.setItem(KEY,JSON.stringify(S))}
+    catch(e){toast('Błąd zapisu — zdjęcie może być za duże')}
+  }
 
   /* ================= KOLORY ================= */
   const hex2rgb=h=>{h=h.replace('#','');if(h.length===3)h=[...h].map(c=>c+c).join('');const n=parseInt(h,16);return[(n>>16)&255,(n>>8)&255,n&255]};
@@ -477,6 +507,50 @@
     renderSwatches();
   }
 
+  /* ================= ZDJĘCIE HERO ================= */
+  function applyHero(){
+    $('heroImg').src=S.hero;
+    renderHeroGrid();
+  }
+  function renderHeroGrid(){
+    const g=$('heroGrid');g.innerHTML='';
+    HERO_PRESETS.forEach(p=>{
+      const b=document.createElement('button');
+      b.className='hero-thumb'+(S.hero===p.src?' active':'');b.title=p.name;
+      b.innerHTML=`<img src="${p.src}" alt="${esc(p.name)}">`;
+      b.onclick=()=>{S.hero=p.src;applyHero()};
+      g.appendChild(b);
+    });
+    if(!HERO_PRESETS.some(p=>p.src===S.hero)){
+      const b=document.createElement('button');
+      b.className='hero-thumb active';b.title='Własne zdjęcie';
+      b.innerHTML=`<img src="${S.hero}" alt="Własne zdjęcie hero">`;
+      g.appendChild(b);
+    }
+  }
+  function resizeImageFile(file,maxDim=1920,quality=0.82){
+    return new Promise((resolve,reject)=>{
+      const reader=new FileReader();
+      reader.onload=()=>{
+        const img=new Image();
+        img.onload=()=>{
+          let w=img.width,h=img.height;
+          if(w>maxDim||h>maxDim){
+            if(w>h){h=Math.round(h*maxDim/w);w=maxDim}
+            else{w=Math.round(w*maxDim/h);h=maxDim}
+          }
+          const canvas=document.createElement('canvas');
+          canvas.width=w;canvas.height=h;
+          canvas.getContext('2d').drawImage(img,0,0,w,h);
+          resolve(canvas.toDataURL('image/jpeg',quality));
+        };
+        img.onerror=()=>reject(new Error('bad image'));
+        img.src=reader.result;
+      };
+      reader.onerror=()=>reject(new Error('read failed'));
+      reader.readAsDataURL(file);
+    });
+  }
   /* ================= CENNIK NA STRONIE ================= */
   const rowHTML=r=>`<div class="prow"><span>${esc(r.label)}</span><span class="dots"></span><span class="price">${esc(r.price)}</span></div>`;
   const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -521,6 +595,22 @@
   $('cBg').oninput=e=>{S.custom.bg=e.target.value;if(S.custom.on)applyTheme()};
   $('cAccent').oninput=e=>{S.custom.accent=e.target.value;if(S.custom.on)applyTheme()};
 
+  // upload własnego zdjęcia hero
+  $('heroUpload').addEventListener('change', async e=>{
+    const file=e.target.files[0];
+    if(!file)return;
+    if(!file.type.startsWith('image/')){toast('Wybierz plik graficzny');e.target.value='';return}
+    toast('Przetwarzanie zdjęcia…');
+    try{
+      S.hero=await resizeImageFile(file);
+      applyHero();
+      toast('Podgląd gotowy — kliknij „Zapisz zmiany”');
+    }catch(err){
+      toast('Nie udało się wczytać zdjęcia');
+    }
+    e.target.value='';
+  });
+
   // PIN gate
   $('gear').onclick=()=>{
     if(sessionStorage.getItem('ka-unlocked')==='1'){openAdmin();return}
@@ -557,7 +647,7 @@
   $('admReset').onclick=()=>{
     if(!confirm('Przywrócić domyślne ceny, kolory i PIN?'))return;
     localStorage.removeItem(KEY);S=load();
-    applyTheme();renderPrices();openAdmin();toast('Przywrócono domyślne');
+    applyHero();applyTheme();renderPrices();openAdmin();toast('Przywrócono domyślne');
   };
 
   function toast(msg){
@@ -589,7 +679,7 @@
   document.querySelectorAll('[data-count]').forEach(el=>cio.observe(el));
 
   /* start */
-  applyTheme();renderPrices();
+  applyHero();applyTheme();renderPrices();
   // wejście na adres z #admin od razu otwiera bramkę PIN
   if(location.hash==='#admin')$('gear').click();
 </script>
