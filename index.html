@@ -55,13 +55,6 @@
   .hero .scroll-hint{position:absolute;bottom:32px;left:40px;font-size:12px;letter-spacing:2px;text-transform:uppercase;color:#cfcfc8;animation:bob 2s ease-in-out infinite}
   @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(8px)}}
 
-  #traj{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:-1}
-  #traj path{stroke:var(--accent);stroke-width:3;fill:none;stroke-dasharray:2400;stroke-dashoffset:2400;animation:draw 2.4s .4s cubic-bezier(.65,0,.35,1) forwards;opacity:.6}
-  @keyframes draw{to{stroke-dashoffset:0}}
-  #shuttle{offset-path:path('M -50 620 Q 400 80 760 300 T 1500 200');offset-rotate:0deg;animation:fly 2.4s .4s cubic-bezier(.65,0,.35,1) forwards;
-    font-size:clamp(52px,7vw,96px);position:absolute;filter:drop-shadow(0 0 22px var(--accent)) drop-shadow(0 8px 16px rgba(0,0,0,.55))}
-  @keyframes fly{from{offset-distance:0%}to{offset-distance:100%}}
-
   .marquee{border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:18px 0;overflow:hidden;white-space:nowrap;background:var(--bg2);transition:background .45s}
   .marquee .track{display:inline-block;animation:scrollx 22s linear infinite}
   .marquee span{font-family:var(--font-display);font-size:22px;text-transform:uppercase;letter-spacing:1px;margin:0 32px;color:var(--dim)}
@@ -230,10 +223,6 @@
 
 <header class="hero">
   <div class="hero-bg"><img id="heroImg" src="img/kamila-augustyn-039.jpg" alt="Kamila Augustyn w akcji na korcie badmintona" loading="eager"></div>
-  <svg id="traj" viewBox="0 0 1440 800" preserveAspectRatio="none">
-    <path d="M -50 620 Q 400 80 760 300 T 1500 200"/>
-  </svg>
-  <div id="shuttle">🏸</div>
   <h1>
     <span class="line"><span>Kamila</span></span>
     <span class="line"><span>Augustyn</span></span>
